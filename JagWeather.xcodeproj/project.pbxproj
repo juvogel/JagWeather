@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C51CE6A71A89943400F39650 /* WeatherLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C51CE6A61A89943400F39650 /* WeatherLocation.m */; };
+		C51CE6AA1A89945100F39650 /* WeatherLocationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51CE6A91A89945100F39650 /* WeatherLocationTableViewController.m */; };
+		C53850EA1A805C1D00D3A4DD /* AddLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53850E91A805C1D00D3A4DD /* AddLocationViewController.m */; };
 		C542F9EF1A7EFE1500E3557D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C542F9EE1A7EFE1500E3557D /* main.m */; };
 		C542F9F21A7EFE1500E3557D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C542F9F11A7EFE1500E3557D /* AppDelegate.m */; };
 		C542F9F51A7EFE1500E3557D /* JagWeather.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C542F9F31A7EFE1500E3557D /* JagWeather.xcdatamodeld */; };
-		C542F9F81A7EFE1500E3557D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C542F9F71A7EFE1500E3557D /* ViewController.m */; };
 		C542F9FB1A7EFE1500E3557D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C542F9F91A7EFE1500E3557D /* Main.storyboard */; };
 		C542F9FD1A7EFE1500E3557D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C542F9FC1A7EFE1500E3557D /* Images.xcassets */; };
 		C542FA001A7EFE1500E3557D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C542F9FE1A7EFE1500E3557D /* LaunchScreen.xib */; };
@@ -28,14 +30,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C51CE6A51A89943400F39650 /* WeatherLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherLocation.h; sourceTree = "<group>"; };
+		C51CE6A61A89943400F39650 /* WeatherLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherLocation.m; sourceTree = "<group>"; };
+		C51CE6A81A89945100F39650 /* WeatherLocationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherLocationTableViewController.h; sourceTree = "<group>"; };
+		C51CE6A91A89945100F39650 /* WeatherLocationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherLocationTableViewController.m; sourceTree = "<group>"; };
+		C53850E81A805C1D00D3A4DD /* AddLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddLocationViewController.h; sourceTree = "<group>"; };
+		C53850E91A805C1D00D3A4DD /* AddLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddLocationViewController.m; sourceTree = "<group>"; };
 		C542F9E91A7EFE1500E3557D /* JagWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JagWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C542F9ED1A7EFE1500E3557D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C542F9EE1A7EFE1500E3557D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C542F9F01A7EFE1500E3557D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C542F9F11A7EFE1500E3557D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C542F9F41A7EFE1500E3557D /* JagWeather.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JagWeather.xcdatamodel; sourceTree = "<group>"; };
-		C542F9F61A7EFE1500E3557D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		C542F9F71A7EFE1500E3557D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C542F9FA1A7EFE1500E3557D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C542F9FC1A7EFE1500E3557D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C542F9FF1A7EFE1500E3557D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -85,13 +91,17 @@
 			children = (
 				C542F9F01A7EFE1500E3557D /* AppDelegate.h */,
 				C542F9F11A7EFE1500E3557D /* AppDelegate.m */,
-				C542F9F61A7EFE1500E3557D /* ViewController.h */,
-				C542F9F71A7EFE1500E3557D /* ViewController.m */,
+				C53850E81A805C1D00D3A4DD /* AddLocationViewController.h */,
+				C53850E91A805C1D00D3A4DD /* AddLocationViewController.m */,
 				C542F9F91A7EFE1500E3557D /* Main.storyboard */,
 				C542F9FC1A7EFE1500E3557D /* Images.xcassets */,
 				C542F9FE1A7EFE1500E3557D /* LaunchScreen.xib */,
 				C542F9F31A7EFE1500E3557D /* JagWeather.xcdatamodeld */,
 				C542F9EC1A7EFE1500E3557D /* Supporting Files */,
+				C51CE6A51A89943400F39650 /* WeatherLocation.h */,
+				C51CE6A61A89943400F39650 /* WeatherLocation.m */,
+				C51CE6A81A89945100F39650 /* WeatherLocationTableViewController.h */,
+				C51CE6A91A89945100F39650 /* WeatherLocationTableViewController.m */,
 			);
 			path = JagWeather;
 			sourceTree = "<group>";
@@ -222,10 +232,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C53850EA1A805C1D00D3A4DD /* AddLocationViewController.m in Sources */,
+				C51CE6AA1A89945100F39650 /* WeatherLocationTableViewController.m in Sources */,
 				C542F9F21A7EFE1500E3557D /* AppDelegate.m in Sources */,
 				C542F9F51A7EFE1500E3557D /* JagWeather.xcdatamodeld in Sources */,
-				C542F9F81A7EFE1500E3557D /* ViewController.m in Sources */,
 				C542F9EF1A7EFE1500E3557D /* main.m in Sources */,
+				C51CE6A71A89943400F39650 /* WeatherLocation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,6 +428,7 @@
 				C542FA111A7EFE1500E3557D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C542FA121A7EFE1500E3557D /* Build configuration list for PBXNativeTarget "JagWeatherTests" */ = {
 			isa = XCConfigurationList;
@@ -424,6 +437,7 @@
 				C542FA141A7EFE1500E3557D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
