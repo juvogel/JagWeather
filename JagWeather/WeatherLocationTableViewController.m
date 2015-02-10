@@ -7,6 +7,8 @@
 //
 
 #import "WeatherLocationTableViewController.h"
+#import "WeatherLocation.h"
+#import "OverviewViewController.h"
 
 @interface WeatherLocationTableViewController ()
 
@@ -108,14 +110,25 @@
 }
 */
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
+    if ([[segue identifier] isEqualToString:@"LocationOverviewSegue"]) {
+        
+        // Get the new view controller using [segue destinationViewController].
+        
+        OverviewViewController *locationName = [segue destinationViewController];
+        
+        // Pass the selected object to the new view controller.
+        
+        NSIndexPath *ip = [self.tableView indexPathForCell:sender];
+        
+        WeatherLocation *thisLocation = [allLocations objectAtIndex:[ip row]];
+        
+        [locationName setSelectedLocation:thisLocation];
+    }
 }
-*/
 
 @end

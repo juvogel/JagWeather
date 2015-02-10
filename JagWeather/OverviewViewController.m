@@ -1,26 +1,26 @@
 //
-//  AddLocationViewController.m
+//  OverviewViewController.m
 //  JagWeather
 //
-//  Created by Bobby Vogel on 2/2/15.
+//  Created by Bobby Vogel on 2/9/15.
 //  Copyright (c) 2015 Bobby Vogel. All rights reserved.
 //
 
-#import "AddLocationViewController.h"
+#import "OverviewViewController.h"
 
-@interface AddLocationViewController ()
+@interface OverviewViewController ()
 
 @end
 
-@implementation AddLocationViewController
+@implementation OverviewViewController
 
--(IBAction)dismiss:(id)sender {
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-}
+@synthesize selectedLocation;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [locationField setText:[selectedLocation fullName]];
 }
 
 - (void)didReceiveMemoryWarning {
