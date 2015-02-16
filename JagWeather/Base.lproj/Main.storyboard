@@ -190,7 +190,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="locationField" destination="XJs-YW-GzP" id="apC-Jg-m3a"/>
+                        <outlet property="locationField" destination="XJs-YW-GzP" id="bNv-ox-DGU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g8g-Ig-eTi" userLabel="First Responder" sceneMemberID="firstResponder"/>

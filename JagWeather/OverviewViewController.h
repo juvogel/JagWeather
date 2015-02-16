@@ -9,10 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "WeatherLocation.h"
 
-@interface OverviewViewController : UIViewController {
-    IBOutlet UILabel *locationField;
-}
+@interface OverviewViewController : UIViewController
 
 @property (nonatomic) WeatherLocation *selectedLocation;
+@property (nonatomic) IBOutlet UILabel *locationField;
 
 @end
