@@ -18,9 +18,11 @@
     
     self = [super init];
     
-    [self setCity:strCity];
-    [self setState:strState];
-    [self setCountryName:strCountryName];
+    if (self) {
+        [self setCity:strCity];
+        [self setState:strState];
+        [self setCountryName:strCountryName];
+    }
     
     return self;
 }

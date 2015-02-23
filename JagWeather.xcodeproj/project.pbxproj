@@ -17,6 +17,9 @@
 		C542F9FD1A7EFE1500E3557D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C542F9FC1A7EFE1500E3557D /* Images.xcassets */; };
 		C542FA001A7EFE1500E3557D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C542F9FE1A7EFE1500E3557D /* LaunchScreen.xib */; };
 		C542FA0C1A7EFE1500E3557D /* JagWeatherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C542FA0B1A7EFE1500E3557D /* JagWeatherTests.m */; };
+		C5656B301A92CE320007715D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5656B2F1A92CE320007715D /* CoreLocation.framework */; };
+		C5656B321A92CE370007715D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5656B311A92CE370007715D /* MapKit.framework */; };
+		C5656B351A92D0560007715D /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5656B341A92D0560007715D /* MapViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +51,10 @@
 		C542FA051A7EFE1500E3557D /* JagWeatherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JagWeatherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C542FA0A1A7EFE1500E3557D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C542FA0B1A7EFE1500E3557D /* JagWeatherTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JagWeatherTests.m; sourceTree = "<group>"; };
+		C5656B2F1A92CE320007715D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		C5656B311A92CE370007715D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		C5656B331A92D0560007715D /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		C5656B341A92D0560007715D /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +62,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5656B321A92CE370007715D /* MapKit.framework in Frameworks */,
+				C5656B301A92CE320007715D /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +80,8 @@
 		C542F9E01A7EFE1500E3557D = {
 			isa = PBXGroup;
 			children = (
+				C5656B311A92CE370007715D /* MapKit.framework */,
+				C5656B2F1A92CE320007715D /* CoreLocation.framework */,
 				C542F9EB1A7EFE1500E3557D /* JagWeather */,
 				C542FA081A7EFE1500E3557D /* JagWeatherTests */,
 				C542F9EA1A7EFE1500E3557D /* Products */,
@@ -102,6 +113,8 @@
 				C51CE6A91A89945100F39650 /* WeatherLocationTableViewController.m */,
 				C51CE6AB1A89A32F00F39650 /* OverviewViewController.h */,
 				C51CE6AC1A89A32F00F39650 /* OverviewViewController.m */,
+				C5656B331A92D0560007715D /* MapViewController.h */,
+				C5656B341A92D0560007715D /* MapViewController.m */,
 			);
 			path = JagWeather;
 			sourceTree = "<group>";
@@ -238,6 +251,7 @@
 				C542F9F51A7EFE1500E3557D /* JagWeather.xcdatamodeld in Sources */,
 				C542F9EF1A7EFE1500E3557D /* main.m in Sources */,
 				C51CE6A71A89943400F39650 /* WeatherLocation.m in Sources */,
+				C5656B351A92D0560007715D /* MapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

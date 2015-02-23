@@ -1,26 +1,22 @@
 //
-//  OverviewViewController.m
+//  MapViewController.m
 //  JagWeather
 //
-//  Created by Bobby Vogel on 2/9/15.
+//  Created by Bobby Vogel on 2/16/15.
 //  Copyright (c) 2015 Bobby Vogel. All rights reserved.
 //
 
-#import "OverviewViewController.h"
+#import "MapViewController.h"
 
-@interface OverviewViewController ()
+@interface MapViewController ()
 
 @end
 
-@implementation OverviewViewController
-
-@synthesize selectedLocation, locationField;
+@implementation MapViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    [locationField setText:[selectedLocation fullName]];
 }
 
 - (void)didReceiveMemoryWarning {

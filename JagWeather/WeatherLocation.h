@@ -15,7 +15,7 @@
 @property (nonatomic)NSString *countryName;
 @property (nonatomic)NSString *state;
 @property (nonatomic)NSString *city;
-@property (nonatomic)CLLocationCoordinate2D *coordinate;
+@property (nonatomic)CLLocationCoordinate2D coordinate;
 @property (nonatomic)int tempF;
 @property (nonatomic)NSString *weather;
 @property (nonatomic)NSString *icon;
