@@ -119,10 +119,10 @@
             </objects>
             <point key="canvasLocation" x="13" y="377"/>
         </scene>
-        <!--View Controller-->
+        <!--Map View Controller-->
         <scene sceneID="iUB-oZ-pN5">
             <objects>
-                <viewController id="psM-8l-7yU" sceneMemberID="viewController">
+                <viewController id="psM-8l-7yU" customClass="MapViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tI8-vq-Vct"/>
                         <viewControllerLayoutGuide type="bottom" id="fLd-DP-dvq"/>
@@ -133,6 +133,9 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="0nR-u3-B5X">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <connections>
+                                    <outlet property="delegate" destination="psM-8l-7yU" id="d0g-ya-Mdb"/>
+                                </connections>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -143,6 +146,9 @@
                             <constraint firstItem="0nR-u3-B5X" firstAttribute="top" secondItem="HZf-ba-Cc3" secondAttribute="top" id="x09-Ce-Grf"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="worldView" destination="0nR-u3-B5X" id="v7C-2c-CdL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qMQ-LB-TXp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -196,7 +202,7 @@
                         <barButtonItem key="backBarButtonItem" title="Back" id="4rC-Vh-dru"/>
                         <barButtonItem key="rightBarButtonItem" title="Map" id="dpc-kT-qhF">
                             <connections>
-                                <segue destination="psM-8l-7yU" kind="show" id="3o6-KT-U2G"/>
+                                <segue destination="psM-8l-7yU" kind="show" identifier="mapViewSegue" id="3o6-KT-U2G"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

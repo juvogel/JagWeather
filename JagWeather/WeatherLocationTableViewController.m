@@ -9,10 +9,8 @@
 #import "WeatherLocationTableViewController.h"
 #import "WeatherLocation.h"
 #import "OverviewViewController.h"
-
-@interface WeatherLocationTableViewController ()
-
-@end
+#import "WeatherLocationStore.h"
+#import "APIManager.h"
 
 @implementation WeatherLocationTableViewController
 
@@ -27,29 +25,9 @@
 }
 
 - (void)loadInitialData {
-    WeatherLocation *loc1 = [[WeatherLocation alloc] initWithCity:@"Indianapolis"
-                                                            State:@"IN"
-                                                          Country:@"USA"];
-    [loc1 setCoordinate:CLLocationCoordinate2DMake(39.7910, 86.1480)];
-    [[self allLocations] addObject:loc1];
-    
-    WeatherLocation *loc2 = [[WeatherLocation alloc] initWithCity:@"San Francisco"
-                                                            State:@"CA"
-                                                          Country:@"USA"];
-    [loc2 setCoordinate:CLLocationCoordinate2DMake(37.7833, 122.4167)];
-    [[self allLocations] addObject:loc2];
-    
-    WeatherLocation *loc3 = [[WeatherLocation alloc] initWithCity:@"Hong Kong"
-                                                            State:@""
-                                                          Country:@"Hong Kong"];
-    [loc3 setCoordinate:CLLocationCoordinate2DMake(22.2783, 114.1747)];
-    [[self allLocations] addObject:loc3];
-    
-    WeatherLocation *loc4 = [[WeatherLocation alloc] initWithCity:@"Rio de Janeiro"
-                                                            State:@""
-                                                          Country:@"Brazil"];
-    [loc4 setCoordinate:CLLocationCoordinate2DMake(-22.9068, 43.1729)];
-    [[self allLocations] addObject:loc4];
+    for (id apiLocation in [[WeatherLocationStore sharedStore] getAllLocations]) {
+        [[APIManager sharedManager] fetchInfoFromAPI:[apiLocation coordinate]];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -66,7 +44,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return [allLocations count];
+    return [[[WeatherLocationStore sharedStore] getAllLocations] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -74,7 +52,7 @@
     
     // Configure the cell...
     
-    WeatherLocation *thisLocation = [[self allLocations] objectAtIndex:[indexPath row]];
+    WeatherLocation *thisLocation = [[[WeatherLocationStore sharedStore] getAllLocations] objectAtIndex:[indexPath row]];
     [[cell textLabel] setText:[thisLocation fullName]];
     
     return cell;
@@ -129,7 +107,7 @@
         
         NSIndexPath *ip = [self.tableView indexPathForCell:sender];
         
-        WeatherLocation *thisLocation = [allLocations objectAtIndex:[ip row]];
+        WeatherLocation *thisLocation = [[[WeatherLocationStore sharedStore] getAllLocations] objectAtIndex:[ip row]];
         
         [locationName setSelectedLocation:thisLocation];
     }

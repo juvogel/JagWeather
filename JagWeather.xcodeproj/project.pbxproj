@@ -20,6 +20,8 @@
 		C5656B301A92CE320007715D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5656B2F1A92CE320007715D /* CoreLocation.framework */; };
 		C5656B321A92CE370007715D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5656B311A92CE370007715D /* MapKit.framework */; };
 		C5656B351A92D0560007715D /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5656B341A92D0560007715D /* MapViewController.m */; };
+		C577DF241AB0CB4300ACE791 /* WeatherLocationStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C577DF231AB0CB4300ACE791 /* WeatherLocationStore.m */; };
+		C577DF271AB0D11400ACE791 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C577DF261AB0D11400ACE791 /* APIManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,10 @@
 		C5656B311A92CE370007715D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C5656B331A92D0560007715D /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		C5656B341A92D0560007715D /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		C577DF221AB0CB4300ACE791 /* WeatherLocationStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherLocationStore.h; sourceTree = "<group>"; };
+		C577DF231AB0CB4300ACE791 /* WeatherLocationStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherLocationStore.m; sourceTree = "<group>"; };
+		C577DF251AB0D11400ACE791 /* APIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
+		C577DF261AB0D11400ACE791 /* APIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +121,10 @@
 				C51CE6AC1A89A32F00F39650 /* OverviewViewController.m */,
 				C5656B331A92D0560007715D /* MapViewController.h */,
 				C5656B341A92D0560007715D /* MapViewController.m */,
+				C577DF221AB0CB4300ACE791 /* WeatherLocationStore.h */,
+				C577DF231AB0CB4300ACE791 /* WeatherLocationStore.m */,
+				C577DF251AB0D11400ACE791 /* APIManager.h */,
+				C577DF261AB0D11400ACE791 /* APIManager.m */,
 			);
 			path = JagWeather;
 			sourceTree = "<group>";
@@ -247,11 +257,13 @@
 			files = (
 				C51CE6AD1A89A32F00F39650 /* OverviewViewController.m in Sources */,
 				C51CE6AA1A89945100F39650 /* WeatherLocationTableViewController.m in Sources */,
+				C577DF271AB0D11400ACE791 /* APIManager.m in Sources */,
 				C542F9F21A7EFE1500E3557D /* AppDelegate.m in Sources */,
 				C542F9F51A7EFE1500E3557D /* JagWeather.xcdatamodeld in Sources */,
 				C542F9EF1A7EFE1500E3557D /* main.m in Sources */,
 				C51CE6A71A89943400F39650 /* WeatherLocation.m in Sources */,
 				C5656B351A92D0560007715D /* MapViewController.m in Sources */,
+				C577DF241AB0CB4300ACE791 /* WeatherLocationStore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

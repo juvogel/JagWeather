@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
+#import "WeatherLocation.h"
 
-@interface MapViewController : UIViewController
+@interface MapViewController : UIViewController <CLLocationManagerDelegate, MKMapViewDelegate>
+
+@property (nonatomic) IBOutlet MKMapView *worldView;
+@property (nonatomic) WeatherLocation *selectedLocation;
+@property (nonatomic) CLLocationManager *locationManager;
 
 @end

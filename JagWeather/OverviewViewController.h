@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WeatherLocation.h"
+#import "MapViewController.h"
 
 @interface OverviewViewController : UIViewController
 
