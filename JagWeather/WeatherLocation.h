@@ -11,18 +11,20 @@
 
 @interface WeatherLocation : NSObject
 
-@property (nonatomic)NSString *postalCode;
-@property (nonatomic)NSString *countryName;
-@property (nonatomic)NSString *state;
-@property (nonatomic)NSString *city;
-@property (nonatomic)CLLocationCoordinate2D coordinate;
-@property (nonatomic)int tempF;
-@property (nonatomic)NSString *weather;
-@property (nonatomic)NSString *icon;
-@property (nonatomic)int high;
-@property (nonatomic)int low;
-@property (nonatomic)int relativeHumidity;
-@property (nonatomic)NSString *wind;
+@property (nonatomic) NSString *postalCode;
+@property (nonatomic) NSString *countryName;
+@property (nonatomic) NSString *state;
+@property (nonatomic) NSString *city;
+@property (nonatomic) CLLocationCoordinate2D coordinate;
+@property (nonatomic) NSInteger tempF;
+@property (nonatomic) NSString *condition;
+@property (nonatomic) NSString *icon;
+@property (nonatomic) NSInteger high;
+@property (nonatomic) NSInteger low;
+@property (nonatomic) NSString *humidity;
+@property (nonatomic) NSString *wind;
+@property (nonatomic) NSString *pressure;
+@property (nonatomic) NSInteger feelsLike;
 
 -(instancetype)initWithCity:strCity
                       State:strState

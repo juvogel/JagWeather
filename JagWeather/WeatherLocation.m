@@ -10,7 +10,7 @@
 
 @implementation WeatherLocation
 
-@synthesize postalCode, countryName, state, city, coordinate, tempF, weather, icon, high, low, relativeHumidity, wind;
+@synthesize postalCode, countryName, state, city, coordinate, tempF, condition, icon, high, low, humidity, wind, pressure, feelsLike;
 
 -(instancetype)initWithCity:strCity
           State:strState

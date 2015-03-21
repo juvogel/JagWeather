@@ -11,6 +11,4 @@
 
 @interface WeatherLocationTableViewController : UITableViewController
 
-@property (nonatomic) NSMutableArray *allLocations;
-
 @end

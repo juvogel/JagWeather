@@ -17,7 +17,7 @@ static WeatherLocationStore *sharedStore = nil;
     self = [super init];
     
     if (self) {
-        allLocations = [[NSMutableArray init] alloc];
+        allLocations = [[NSMutableArray alloc] init];
     }
     
     return self;
@@ -36,7 +36,7 @@ static WeatherLocationStore *sharedStore = nil;
     return [self sharedStore];
 }
 
--(NSArray *)getAllLocations:(NSMutableArray *)incomingLocations {
+-(NSArray *)getAllLocations {
     
     if ([allLocations count] == 0) {
         WeatherLocation *loc1 = [[WeatherLocation alloc] initWithCity:@"Indianapolis"

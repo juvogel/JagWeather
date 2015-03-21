@@ -10,6 +10,9 @@
 		C51CE6A71A89943400F39650 /* WeatherLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C51CE6A61A89943400F39650 /* WeatherLocation.m */; };
 		C51CE6AA1A89945100F39650 /* WeatherLocationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51CE6A91A89945100F39650 /* WeatherLocationTableViewController.m */; };
 		C51CE6AD1A89A32F00F39650 /* OverviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51CE6AC1A89A32F00F39650 /* OverviewViewController.m */; };
+		C53D11BC1ABCD1BD00BF9241 /* meteocons.otf in Resources */ = {isa = PBXBuildFile; fileRef = C53D11BB1ABCD1BD00BF9241 /* meteocons.otf */; };
+		C53D11BF1ABCEC7900BF9241 /* OverviewDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53D11BE1ABCEC7900BF9241 /* OverviewDetailViewController.m */; };
+		C53D11C11ABDD1CC00BF9241 /* background2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C53D11C01ABDD1CC00BF9241 /* background2x.png */; };
 		C542F9EF1A7EFE1500E3557D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C542F9EE1A7EFE1500E3557D /* main.m */; };
 		C542F9F21A7EFE1500E3557D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C542F9F11A7EFE1500E3557D /* AppDelegate.m */; };
 		C542F9F51A7EFE1500E3557D /* JagWeather.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C542F9F31A7EFE1500E3557D /* JagWeather.xcdatamodeld */; };
@@ -41,6 +44,10 @@
 		C51CE6A91A89945100F39650 /* WeatherLocationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherLocationTableViewController.m; sourceTree = "<group>"; };
 		C51CE6AB1A89A32F00F39650 /* OverviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverviewViewController.h; sourceTree = "<group>"; };
 		C51CE6AC1A89A32F00F39650 /* OverviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverviewViewController.m; sourceTree = "<group>"; };
+		C53D11BB1ABCD1BD00BF9241 /* meteocons.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = meteocons.otf; sourceTree = "<group>"; };
+		C53D11BD1ABCEC7900BF9241 /* OverviewDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverviewDetailViewController.h; sourceTree = "<group>"; };
+		C53D11BE1ABCEC7900BF9241 /* OverviewDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverviewDetailViewController.m; sourceTree = "<group>"; };
+		C53D11C01ABDD1CC00BF9241 /* background2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background2x.png; sourceTree = "<group>"; };
 		C542F9E91A7EFE1500E3557D /* JagWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JagWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C542F9ED1A7EFE1500E3557D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C542F9EE1A7EFE1500E3557D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -83,6 +90,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C53D11BA1ABCD1BD00BF9241 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				C53D11BB1ABCD1BD00BF9241 /* meteocons.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		C542F9E01A7EFE1500E3557D = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +134,8 @@
 				C51CE6A91A89945100F39650 /* WeatherLocationTableViewController.m */,
 				C51CE6AB1A89A32F00F39650 /* OverviewViewController.h */,
 				C51CE6AC1A89A32F00F39650 /* OverviewViewController.m */,
+				C53D11BD1ABCEC7900BF9241 /* OverviewDetailViewController.h */,
+				C53D11BE1ABCEC7900BF9241 /* OverviewDetailViewController.m */,
 				C5656B331A92D0560007715D /* MapViewController.h */,
 				C5656B341A92D0560007715D /* MapViewController.m */,
 				C577DF221AB0CB4300ACE791 /* WeatherLocationStore.h */,
@@ -132,6 +149,8 @@
 		C542F9EC1A7EFE1500E3557D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C53D11C01ABDD1CC00BF9241 /* background2x.png */,
+				C53D11BA1ABCD1BD00BF9241 /* Fonts */,
 				C542F9ED1A7EFE1500E3557D /* Info.plist */,
 				C542F9EE1A7EFE1500E3557D /* main.m */,
 			);
@@ -236,7 +255,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C542F9FB1A7EFE1500E3557D /* Main.storyboard in Resources */,
+				C53D11BC1ABCD1BD00BF9241 /* meteocons.otf in Resources */,
 				C542FA001A7EFE1500E3557D /* LaunchScreen.xib in Resources */,
+				C53D11C11ABDD1CC00BF9241 /* background2x.png in Resources */,
 				C542F9FD1A7EFE1500E3557D /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -255,6 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C53D11BF1ABCEC7900BF9241 /* OverviewDetailViewController.m in Sources */,
 				C51CE6AD1A89A32F00F39650 /* OverviewViewController.m in Sources */,
 				C51CE6AA1A89945100F39650 /* WeatherLocationTableViewController.m in Sources */,
 				C577DF271AB0D11400ACE791 /* APIManager.m in Sources */,

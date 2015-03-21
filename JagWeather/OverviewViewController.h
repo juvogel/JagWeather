@@ -14,5 +14,16 @@
 
 @property (nonatomic) WeatherLocation *selectedLocation;
 @property (nonatomic) IBOutlet UILabel *locationField;
+@property (nonatomic) IBOutlet UILabel *currentTemperature;
+@property (nonatomic) IBOutlet UILabel *currentCondition;
+@property (nonatomic) IBOutlet UILabel *currentConditionIcon;
+@property (nonatomic) IBOutlet UILabel *currentWind;
+@property (nonatomic) IBOutlet UILabel *currentHigh;
+@property (nonatomic) IBOutlet UILabel *currentLow;
+@property (nonatomic) IBOutlet UILabel *currentHumidity;
+@property (nonatomic) IBOutlet UILabel *currentPressure;
+@property (nonatomic) IBOutlet UILabel *currentFeelsLike;
+
+-(void)resolveConditionIcon;
 
 @end

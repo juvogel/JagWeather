@@ -8,17 +8,22 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import "WeatherLocation.h"
 
 @interface APIManager : NSObject {
-    NSString *serviceURL;
-    NSURLConnection *connectionInProgress;
+    NSString *weatherAPIURL;
     NSMutableData *jsonAPIData;
+    NSDictionary *locationAPIData;
     id jsonAPIObject;
 }
 
+@property (nonatomic, strong) NSURLSession *session;
+
 +(APIManager *)sharedManager;
 
--(void)fetchInfoFromAPI:(CLLocationCoordinate2D)incomingCoordinates;
--(void)populateLocationInfo:(NSMutableData *)incomingData;
+-(void)fetchWeatherConditions:(WeatherLocation *)incomingLocation;
+-(void)fetchWeatherForecast:(WeatherLocation *)incomingLocation;
+-(void)fetchJSONFromAPI:(NSURL *)url location:(WeatherLocation *)incomingLocation;
+-(void)parseJSON:(WeatherLocation *)incomingLocation;
 
 @end

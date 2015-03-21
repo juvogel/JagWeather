@@ -14,20 +14,22 @@
 
 @implementation WeatherLocationTableViewController
 
-@synthesize allLocations;
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    allLocations = [[NSMutableArray alloc] init];
-    
     [self loadInitialData];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableData) name:@"APIDataProcessed" object:nil];
 }
 
 - (void)loadInitialData {
-    for (id apiLocation in [[WeatherLocationStore sharedStore] getAllLocations]) {
-        [[APIManager sharedManager] fetchInfoFromAPI:[apiLocation coordinate]];
+    for (WeatherLocation *apiLocation in [[WeatherLocationStore sharedStore] getAllLocations]) {
+        [[APIManager sharedManager] fetchWeatherConditions:apiLocation];
     }
+}
+
+-(void)reloadTableData {
+    [[self tableView] reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,6 +56,7 @@
     
     WeatherLocation *thisLocation = [[[WeatherLocationStore sharedStore] getAllLocations] objectAtIndex:[indexPath row]];
     [[cell textLabel] setText:[thisLocation fullName]];
+    [[cell detailTextLabel] setText:[NSString stringWithFormat:@"%ld\u00B0", (long)[thisLocation tempF]]];
     
     return cell;
 }
@@ -110,6 +113,9 @@
         WeatherLocation *thisLocation = [[[WeatherLocationStore sharedStore] getAllLocations] objectAtIndex:[ip row]];
         
         [locationName setSelectedLocation:thisLocation];
+        
+        [[APIManager sharedManager] fetchWeatherConditions:thisLocation];
+        [[APIManager sharedManager] fetchWeatherForecast:thisLocation];
     }
 }
 
