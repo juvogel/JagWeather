@@ -88,16 +88,5 @@ static APIManager *sharedManager = nil;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"APIDataProcessed" object:self];
     }
 }
-/*
-// DELEGATE METHODS FOR NSURLCONNECTION
 
--(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    [jsonAPIData appendData:data];
-}
-
--(void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    locationAPIData = [NSJSONSerialization JSONObjectWithData:jsonAPIData options:0 error:nil];
-    [self parseJSON];
-}
-*/
 @end

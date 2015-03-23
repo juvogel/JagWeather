@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C517BD9F1ABE7EB000613C92 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C517BD9E1ABE7EB000613C92 /* icon.png */; };
 		C51CE6A71A89943400F39650 /* WeatherLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C51CE6A61A89943400F39650 /* WeatherLocation.m */; };
 		C51CE6AA1A89945100F39650 /* WeatherLocationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51CE6A91A89945100F39650 /* WeatherLocationTableViewController.m */; };
 		C51CE6AD1A89A32F00F39650 /* OverviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51CE6AC1A89A32F00F39650 /* OverviewViewController.m */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C517BD9E1ABE7EB000613C92 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		C51CE6A51A89943400F39650 /* WeatherLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherLocation.h; sourceTree = "<group>"; };
 		C51CE6A61A89943400F39650 /* WeatherLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherLocation.m; sourceTree = "<group>"; };
 		C51CE6A81A89945100F39650 /* WeatherLocationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherLocationTableViewController.h; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 		C542F9EC1A7EFE1500E3557D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C517BD9E1ABE7EB000613C92 /* icon.png */,
 				C53D11C01ABDD1CC00BF9241 /* background2x.png */,
 				C53D11BA1ABCD1BD00BF9241 /* Fonts */,
 				C542F9ED1A7EFE1500E3557D /* Info.plist */,
@@ -256,6 +259,7 @@
 			files = (
 				C542F9FB1A7EFE1500E3557D /* Main.storyboard in Resources */,
 				C53D11BC1ABCD1BD00BF9241 /* meteocons.otf in Resources */,
+				C517BD9F1ABE7EB000613C92 /* icon.png in Resources */,
 				C542FA001A7EFE1500E3557D /* LaunchScreen.xib in Resources */,
 				C53D11C11ABDD1CC00BF9241 /* background2x.png in Resources */,
 				C542F9FD1A7EFE1500E3557D /* Images.xcassets in Resources */,

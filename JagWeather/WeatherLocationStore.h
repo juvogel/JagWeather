@@ -17,5 +17,7 @@
 
 -(NSArray *)getAllLocations;
 -(WeatherLocation *)createLocation;
+-(void)removeLocation:(NSInteger)index;
+-(void)reorderLocationFromIndex:(NSInteger)fromIndex toIndexPath:(NSInteger)toIndex;
 
 @end

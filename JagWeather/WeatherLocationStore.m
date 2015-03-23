@@ -39,29 +39,29 @@ static WeatherLocationStore *sharedStore = nil;
 -(NSArray *)getAllLocations {
     
     if ([allLocations count] == 0) {
-        WeatherLocation *loc1 = [[WeatherLocation alloc] initWithCity:@"Indianapolis"
+        WeatherLocation *location1 = [[WeatherLocation alloc] initWithCity:@"Indianapolis"
                                                                 State:@"IN"
                                                               Country:@"USA"];
-        [loc1 setCoordinate:CLLocationCoordinate2DMake(39.7910, -86.1480)];
-        [allLocations addObject:loc1];
+        [location1 setCoordinate:CLLocationCoordinate2DMake(39.7910, -86.1480)];
+        [allLocations addObject:location1];
         
-        WeatherLocation *loc2 = [[WeatherLocation alloc] initWithCity:@"San Francisco"
+        WeatherLocation *location2 = [[WeatherLocation alloc] initWithCity:@"San Francisco"
                                                                 State:@"CA"
                                                               Country:@"USA"];
-        [loc2 setCoordinate:CLLocationCoordinate2DMake(37.7833, -122.4167)];
-        [allLocations addObject:loc2];
+        [location2 setCoordinate:CLLocationCoordinate2DMake(37.7833, -122.4167)];
+        [allLocations addObject:location2];
         
-        WeatherLocation *loc3 = [[WeatherLocation alloc] initWithCity:@"Hong Kong"
+        WeatherLocation *location3 = [[WeatherLocation alloc] initWithCity:@"Hong Kong"
                                                                 State:@""
                                                               Country:@"Hong Kong"];
-        [loc3 setCoordinate:CLLocationCoordinate2DMake(22.2783, 114.1747)];
-        [allLocations addObject:loc3];
+        [location3 setCoordinate:CLLocationCoordinate2DMake(22.2783, 114.1747)];
+        [allLocations addObject:location3];
         
-        WeatherLocation *loc4 = [[WeatherLocation alloc] initWithCity:@"Rio de Janeiro"
+        WeatherLocation *location4 = [[WeatherLocation alloc] initWithCity:@"Rio de Janeiro"
                                                                 State:@""
                                                               Country:@"Brazil"];
-        [loc4 setCoordinate:CLLocationCoordinate2DMake(-22.9068, -43.1729)];
-        [allLocations addObject:loc4];
+        [location4 setCoordinate:CLLocationCoordinate2DMake(-22.9068, -43.1729)];
+        [allLocations addObject:location4];
     }
     
     return allLocations;
@@ -74,6 +74,16 @@ static WeatherLocationStore *sharedStore = nil;
     [allLocations addObject:newLocation];
     
     return newLocation;
+}
+
+-(void)removeLocation:(NSInteger)index {
+    [allLocations removeObjectAtIndex:index];
+}
+
+-(void)reorderLocationFromIndex:(NSInteger)fromIndex toIndexPath:(NSInteger)toIndex {
+    WeatherLocation *object = [allLocations objectAtIndex:fromIndex];
+    [allLocations removeObject:[allLocations objectAtIndex:fromIndex]];
+    [allLocations insertObject:object atIndex:toIndex];
 }
 
 @end

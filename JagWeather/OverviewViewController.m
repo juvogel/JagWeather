@@ -93,6 +93,8 @@
         //[currentConditionIcon setText:@"C"];
     } else if ([[selectedLocation condition] rangeOfString:@"Cloudy"].location != NSNotFound) {
         [currentConditionIcon setText:@"N"];
+    } else if ([[selectedLocation condition] rangeOfString:@"Clouds"].location != NSNotFound) {
+        [currentConditionIcon setText:@"N"];
     } else {
         [currentConditionIcon setText:@"?"];
     }
