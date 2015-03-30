@@ -13,8 +13,7 @@
 @interface APIManager : NSObject {
     NSString *weatherAPIURL;
     NSMutableData *jsonAPIData;
-    NSDictionary *locationAPIData;
-    id jsonAPIObject;
+    NSArray *searchResults;
 }
 
 @property (nonatomic, strong) NSURLSession *session;
@@ -23,7 +22,10 @@
 
 -(void)fetchWeatherConditions:(WeatherLocation *)incomingLocation;
 -(void)fetchWeatherForecast:(WeatherLocation *)incomingLocation;
--(void)fetchJSONFromAPI:(NSURL *)url location:(WeatherLocation *)incomingLocation;
--(void)parseJSON:(WeatherLocation *)incomingLocation;
+-(void)fetchJSONFromAPI:(NSURL *)url withLocation:(WeatherLocation *)incomingLocation;
+-(void)parseJSON:(NSDictionary *)locationAPIData withLocation:(WeatherLocation *)incomingLocation;
+-(void)fetchLocationsFromAPI:(NSString *)searchString;
+-(void)parseJSON:(NSDictionary *)apiData;
+-(NSArray *)getSearchResults;
 
 @end

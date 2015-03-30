@@ -41,32 +41,42 @@ static APIManager *sharedManager = nil;
     return self;
 }
 
--(void)fetchJSONFromAPI:(NSURL *)url location:(WeatherLocation *)incomingLocation {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    NSURLSessionDataTask *dataTask = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        locationAPIData = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-        
-        // run this method on main thread
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self parseJSON:incomingLocation];
-        });
-    }];
-    [dataTask resume];
-}
-
 -(void)fetchWeatherConditions:(WeatherLocation *)incomingLocation {
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@conditions/q/%f,%f.json", weatherAPIURL, [incomingLocation coordinate].latitude, [incomingLocation coordinate].longitude]];
     
-    [self fetchJSONFromAPI:url location:incomingLocation];
+    [self fetchJSONFromAPI:url withLocation:incomingLocation];
 }
 
 -(void)fetchWeatherForecast:(WeatherLocation *)incomingLocation {
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@forecast/q/%f,%f.json", weatherAPIURL, [incomingLocation coordinate].latitude, [incomingLocation coordinate].longitude]];
     
-    [self fetchJSONFromAPI:url location:incomingLocation];
+    [self fetchJSONFromAPI:url withLocation:incomingLocation];
 }
 
--(void)parseJSON:(WeatherLocation *)incomingLocation{
+-(void)fetchLocationsFromAPI:(NSString *)searchString {
+    searchString = [searchString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://autocomplete.wunderground.com/aq?h=0&query=%@", searchString]];
+    
+    [self fetchJSONFromAPI:url withLocation:nil];
+}
+
+-(void)fetchJSONFromAPI:(NSURL *)url withLocation:(WeatherLocation *)incomingLocation {
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    NSURLSessionDataTask *dataTask = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSDictionary *locationAPIData = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        
+        // run this method on main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (incomingLocation) {
+                [self parseJSON:locationAPIData withLocation:incomingLocation];
+            }
+            [self parseJSON:locationAPIData];
+        });
+    }];
+    [dataTask resume];
+}
+
+-(void)parseJSON:(NSDictionary *)locationAPIData withLocation:(WeatherLocation *)incomingLocation {
     if ([locationAPIData objectForKey:@"forecast"] != NULL) {
         // fetch high temp
         [incomingLocation setHigh:[[[[[[[locationAPIData objectForKey:@"forecast"] objectForKey:@"simpleforecast"] objectForKey:@"forecastday"] objectAtIndex:0] objectForKey:@"high"] objectForKey:@"fahrenheit"] integerValue]];
@@ -87,6 +97,15 @@ static APIManager *sharedManager = nil;
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"APIDataProcessed" object:self];
     }
+}
+
+-(void)parseJSON:(NSDictionary *)apiData {
+    searchResults = [apiData objectForKey:@"RESULTS"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"APISearchDataProcessed" object:self];
+}
+
+-(NSArray *)getSearchResults {
+    return searchResults;
 }
 
 @end

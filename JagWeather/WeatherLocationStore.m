@@ -54,14 +54,8 @@ static WeatherLocationStore *sharedStore = nil;
         WeatherLocation *location3 = [[WeatherLocation alloc] initWithCity:@"Hong Kong"
                                                                 State:@""
                                                               Country:@"Hong Kong"];
-        [location3 setCoordinate:CLLocationCoordinate2DMake(22.2783, 114.1747)];
+        [location3 setCoordinate:CLLocationCoordinate2DMake(39.6396194, -86.1446483)];
         [allLocations addObject:location3];
-        
-        WeatherLocation *location4 = [[WeatherLocation alloc] initWithCity:@"Rio de Janeiro"
-                                                                State:@""
-                                                              Country:@"Brazil"];
-        [location4 setCoordinate:CLLocationCoordinate2DMake(-22.9068, -43.1729)];
-        [allLocations addObject:location4];
     }
     
     return allLocations;
@@ -74,6 +68,10 @@ static WeatherLocationStore *sharedStore = nil;
     [allLocations addObject:newLocation];
     
     return newLocation;
+}
+
+-(void)addLocation:(WeatherLocation *)newLocation {
+    [allLocations addObject:newLocation];
 }
 
 -(void)removeLocation:(NSInteger)index {

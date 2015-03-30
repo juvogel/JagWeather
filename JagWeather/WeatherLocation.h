@@ -29,6 +29,7 @@
 -(instancetype)initWithCity:strCity
                       State:strState
                     Country:strCountryName;
+-(instancetype)initWithString:locationString;
 
 -(NSString *)fullName;
 
