@@ -9,15 +9,22 @@
 #import <Foundation/Foundation.h>
 #import "WeatherLocation.h"
 
-@interface WeatherLocationStore : NSObject {
-    NSMutableArray *allLocations;
-}
+@interface WeatherLocationStore : NSObject
+
+@property (nonatomic) WeatherLocation *newLocation;
 
 +(WeatherLocationStore *)sharedStore;
 
 -(NSArray *)getAllLocations;
--(WeatherLocation *)createLocation;
--(void)addLocation:(WeatherLocation *)newLocation;
+-(WeatherLocation *)getWeatherLocationAtIndex:(NSInteger)index;
+-(void)createLocationWithCity:(NSString *)incomingCity
+						State:(NSString *)incomingState
+					  Country:(NSString *)incomingCountry
+					 Latitude:(NSNumber *)incomingLatitude
+					Longitude:(NSNumber *)incomingLongitude;
+-(void)createLocationFromString:(NSString *)incomingString
+					   Latitude:(NSNumber *)incomingLatitude
+					  Longitude:(NSNumber *)incomingLongitude;
 -(void)removeLocation:(NSInteger)index;
 -(void)reorderLocationFromIndex:(NSInteger)fromIndex toIndexPath:(NSInteger)toIndex;
 

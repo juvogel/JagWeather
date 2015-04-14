@@ -2,34 +2,31 @@
 //  WeatherLocation.h
 //  JagWeather
 //
-//  Created by Bobby Vogel on 2/9/15.
+//  Created by Bobby Vogel on 4/14/15.
 //  Copyright (c) 2015 Bobby Vogel. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import <MapKit/MapKit.h>
+#import <CoreData/CoreData.h>
 
-@interface WeatherLocation : NSObject
 
-@property (nonatomic) NSString *postalCode;
-@property (nonatomic) NSString *countryName;
-@property (nonatomic) NSString *state;
-@property (nonatomic) NSString *city;
-@property (nonatomic) CLLocationCoordinate2D coordinate;
-@property (nonatomic) NSInteger tempF;
-@property (nonatomic) NSString *condition;
-@property (nonatomic) NSString *icon;
-@property (nonatomic) NSInteger high;
-@property (nonatomic) NSInteger low;
-@property (nonatomic) NSString *humidity;
-@property (nonatomic) NSString *wind;
-@property (nonatomic) NSString *pressure;
-@property (nonatomic) NSInteger feelsLike;
+@interface WeatherLocation : NSManagedObject
 
--(instancetype)initWithCity:strCity
-                      State:strState
-                    Country:strCountryName;
--(instancetype)initWithString:locationString;
+@property (nonatomic, retain) NSString * postalCode;
+@property (nonatomic, retain) NSString * countryName;
+@property (nonatomic, retain) NSString * state;
+@property (nonatomic, retain) NSString * city;
+@property (nonatomic, retain) NSNumber * latitude;
+@property (nonatomic, retain) NSNumber * longitude;
+@property (nonatomic, retain) NSNumber * tempF;
+@property (nonatomic, retain) NSString * condition;
+@property (nonatomic, retain) NSString * icon;
+@property (nonatomic, retain) NSNumber * high;
+@property (nonatomic, retain) NSNumber * low;
+@property (nonatomic, retain) NSString * humidity;
+@property (nonatomic, retain) NSString * wind;
+@property (nonatomic, retain) NSString * pressure;
+@property (nonatomic, retain) NSNumber * feelsLike;
 
 -(NSString *)fullName;
 

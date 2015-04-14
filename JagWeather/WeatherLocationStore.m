@@ -8,17 +8,16 @@
 
 #import "WeatherLocationStore.h"
 #import "APIManager.h"
+#import "AppDelegate.h"
 
 @implementation WeatherLocationStore
+
+@synthesize newLocation;
 
 static WeatherLocationStore *sharedStore = nil;
 
 -(instancetype)init {
     self = [super init];
-    
-    if (self) {
-        allLocations = [[NSMutableArray alloc] init];
-    }
     
     return self;
 }
@@ -37,50 +36,86 @@ static WeatherLocationStore *sharedStore = nil;
 }
 
 -(NSArray *)getAllLocations {
-    
-    if ([allLocations count] == 0) {
-        WeatherLocation *location1 = [[WeatherLocation alloc] initWithCity:@"Indianapolis"
-                                                                State:@"IN"
-                                                              Country:@"USA"];
-        [location1 setCoordinate:CLLocationCoordinate2DMake(39.7910, -86.1480)];
-        [allLocations addObject:location1];
-        
-        WeatherLocation *location2 = [[WeatherLocation alloc] initWithCity:@"San Francisco"
-                                                                State:@"CA"
-                                                              Country:@"USA"];
-        [location2 setCoordinate:CLLocationCoordinate2DMake(37.7833, -122.4167)];
-        [allLocations addObject:location2];
-        
-        WeatherLocation *location3 = [[WeatherLocation alloc] initWithCity:@"Hong Kong"
-                                                                State:@""
-                                                              Country:@"Hong Kong"];
-        [location3 setCoordinate:CLLocationCoordinate2DMake(22.3700556, 114.1223784)];
-        [allLocations addObject:location3];
-    }
-    
-    return allLocations;
+	
+	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+	AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+	NSManagedObjectContext *context = [appDelegate managedObjectContext];
+	NSEntityDescription *entity = [NSEntityDescription entityForName:@"WeatherLocation" inManagedObjectContext:context];
+	[fetchRequest setEntity:entity];
+	NSError *error;
+	
+	return [context executeFetchRequest:fetchRequest error:&error];
 }
 
--(WeatherLocation *)createLocation {
+-(void)createLocationWithCity:(NSString *)incomingCity
+						State:(NSString *)incomingState
+					  Country:(NSString *)incomingCountry
+					 Latitude:(NSNumber *)incomingLatitude
+					Longitude:(NSNumber *)incomingLongitude {
     
-    WeatherLocation *newLocation = [[WeatherLocation alloc] init];
-    
-    [allLocations addObject:newLocation];
-    
-    return newLocation;
+	AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+	NSManagedObjectContext *context = [appDelegate managedObjectContext];
+	
+	newLocation = [NSEntityDescription insertNewObjectForEntityForName:@"WeatherLocation" inManagedObjectContext:context];
+	
+	// set properties
+	[newLocation setCity:incomingCity];
+	[newLocation setState:incomingState];
+	[newLocation setCountryName:incomingCountry];
+	[newLocation setLatitude:incomingLatitude];
+	[newLocation setLongitude:incomingLongitude];
+	
+	// create error object
+	NSError *error;
+	
+	// save the author object
+	if (![context save:&error]) {
+		NSLog(@"Something appears to have went awry! Error message: %@", [error localizedDescription]);
+	}
 }
 
--(void)addLocation:(WeatherLocation *)newLocation {
-    [allLocations addObject:newLocation];
+-(void)createLocationFromString:(NSString *)incomingString
+					   Latitude:(NSNumber *)incomingLatitude
+					  Longitude:(NSNumber *)incomingLongitude {
+	
+	AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+	NSManagedObjectContext *context = [appDelegate managedObjectContext];
+	
+	newLocation = [NSEntityDescription insertNewObjectForEntityForName:@"WeatherLocation" inManagedObjectContext:context];
+	
+	// set properties
+	NSArray *locationNameArray = [incomingString componentsSeparatedByString:@", "];
+	[newLocation setCity:[locationNameArray objectAtIndex:0]];
+	
+	// compare second half of string to dictionary of all US States
+	NSDictionary *states = @{ @"Alabama": @"AL", @"Alaska" : @"AK", @"Arizona" : @"AZ", @"Arkansas" : @"AR", @"California" : @"CA", @"Colorado" : @"CO", @"Connecticut" : @"CT", @"Delaware" : @"DE", @"Florida" : @"FL", @"Georgia" : @"GA", @"Hawaii" : @"HI", @"Idaho" : @"ID", @"Illinois" : @"IL", @"Indiana" : @"IN", @"Iowa" : @"IA", @"Kansas" : @"KS", @"Kentucky" : @"KY", @"Louisiana" : @"LA", @"Maine" : @"ME", @"Maryland" : @"MD", @"Massachusetts" : @"MA", @"Michigan" : @"MI", @"Minnesota" : @"MN", @"Mississippi" : @"MS", @"Missouri" : @"MO", @"Montana" : @"MT", @"Nebraska" : @"NE", @"Nevada": @"NV", @"New Hampshire" : @"NH", @"New Jersey" : @"NJ", @"New Mexico" : @"NM", @"New York" : @"NY", @"North Carolina" : @"NC", @"North Dakota" : @"ND", @"Ohio" : @"OH", @"Oklahoma" : @"OK", @"Oregon" : @"OR", @"Pennsylvania" : @"PA", @"Rhode Island" : @"RI", @"South Carolina" : @"SC", @"South Dakota" : @"SD", @"Tennessee" : @"TN", @"Texas" : @"TX", @"Utah" : @"UT", @"Vermont" : @"VT", @"Virginia" : @"VA", @"Washington" : @"WA", @"West Virginia" : @"WV", @"Wisconsin" : @"WI", @"Wyoming" : @"WY" };
+	
+	if ([states objectForKey:[NSString stringWithFormat:@"%@", [locationNameArray objectAtIndex:1]]] != nil) {
+		[newLocation setState:[states objectForKey:[locationNameArray objectAtIndex:1]]];
+		[newLocation setCountryName:@"USA"];
+	} else {
+		[newLocation setCountryName:[locationNameArray objectAtIndex:1]];
+	}
+	
+	[newLocation setLatitude:incomingLatitude];
+	[newLocation setLongitude:incomingLongitude];
 }
 
 -(void)removeLocation:(NSInteger)index {
-    [allLocations removeObjectAtIndex:index];
+	AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+	NSManagedObjectContext *context = [appDelegate managedObjectContext];
+	
+	[context deleteObject:[[self getAllLocations] objectAtIndex:index]];
+	
+	NSError *error;
+	if (![context save:&error]) {
+		NSLog(@"Something appears to have went awry! Error message: %@", [error localizedDescription]);
+	}
 }
 
 -(void)reorderLocationFromIndex:(NSInteger)fromIndex toIndexPath:(NSInteger)toIndex {
-    WeatherLocation *object = [allLocations objectAtIndex:fromIndex];
-    [allLocations removeObject:[allLocations objectAtIndex:fromIndex]];
+    WeatherLocation *object = [[self getAllLocations] objectAtIndex:fromIndex];
+    [self removeLocation:fromIndex];
     [allLocations insertObject:object atIndex:toIndex];
 }
 

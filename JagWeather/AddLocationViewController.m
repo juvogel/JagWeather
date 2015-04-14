@@ -90,12 +90,7 @@
     NSDictionary *selectedLocationInfo = [searchResults objectAtIndex:[indexPath row]];
     
     // Set weather location from dictionary
-    WeatherLocation *newLocation = [[WeatherLocation alloc] initWithString:[selectedLocationInfo objectForKey:@"name"]];
-    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([[selectedLocationInfo objectForKey:@"lat"] doubleValue], [[selectedLocationInfo objectForKey:@"lon"] doubleValue]);
-    [newLocation setCoordinate:coordinate];
-    
-    // Add location to all locations array
-    [[WeatherLocationStore sharedStore] addLocation:newLocation];
+	[[WeatherLocationStore sharedStore] createLocationFromString:[selectedLocationInfo objectForKey:@"name"] Latitude:[selectedLocationInfo objectForKey:@"lat"] Longitude:[selectedLocationInfo objectForKey:@"lon"]];
     
     // Dismiss view
     [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
