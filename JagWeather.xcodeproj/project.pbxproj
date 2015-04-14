@@ -95,6 +95,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C50C8A131ADCD0BC0066408B /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C51CE6A81A89945100F39650 /* WeatherLocationTableViewController.h */,
+				C51CE6A91A89945100F39650 /* WeatherLocationTableViewController.m */,
+				C51CE6AB1A89A32F00F39650 /* OverviewViewController.h */,
+				C51CE6AC1A89A32F00F39650 /* OverviewViewController.m */,
+				C53D11BD1ABCEC7900BF9241 /* OverviewDetailViewController.h */,
+				C53D11BE1ABCEC7900BF9241 /* OverviewDetailViewController.m */,
+				C5656B331A92D0560007715D /* MapViewController.h */,
+				C5656B341A92D0560007715D /* MapViewController.m */,
+				C5B8A5621AC11A3700E8C6AE /* AddLocationViewController.h */,
+				C5B8A5631AC11A3700E8C6AE /* AddLocationViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
 		C53D11BA1ABCD1BD00BF9241 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -135,20 +152,11 @@
 				C542F9EC1A7EFE1500E3557D /* Supporting Files */,
 				C51CE6A51A89943400F39650 /* WeatherLocation.h */,
 				C51CE6A61A89943400F39650 /* WeatherLocation.m */,
-				C51CE6A81A89945100F39650 /* WeatherLocationTableViewController.h */,
-				C51CE6A91A89945100F39650 /* WeatherLocationTableViewController.m */,
-				C51CE6AB1A89A32F00F39650 /* OverviewViewController.h */,
-				C51CE6AC1A89A32F00F39650 /* OverviewViewController.m */,
-				C53D11BD1ABCEC7900BF9241 /* OverviewDetailViewController.h */,
-				C53D11BE1ABCEC7900BF9241 /* OverviewDetailViewController.m */,
-				C5656B331A92D0560007715D /* MapViewController.h */,
-				C5656B341A92D0560007715D /* MapViewController.m */,
+				C50C8A131ADCD0BC0066408B /* View Controllers */,
 				C577DF221AB0CB4300ACE791 /* WeatherLocationStore.h */,
 				C577DF231AB0CB4300ACE791 /* WeatherLocationStore.m */,
 				C577DF251AB0D11400ACE791 /* APIManager.h */,
 				C577DF261AB0D11400ACE791 /* APIManager.m */,
-				C5B8A5621AC11A3700E8C6AE /* AddLocationViewController.h */,
-				C5B8A5631AC11A3700E8C6AE /* AddLocationViewController.m */,
 			);
 			path = JagWeather;
 			sourceTree = "<group>";
@@ -231,6 +239,7 @@
 				TargetAttributes = {
 					C542F9E81A7EFE1500E3557D = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 9XAD69TCDY;
 					};
 					C542FA041A7EFE1500E3557D = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -417,9 +426,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = JagWeather/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -427,9 +439,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = JagWeather/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

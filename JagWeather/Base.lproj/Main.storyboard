@@ -148,7 +148,8 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </view>
                                             <constraints>
-                                                <constraint firstAttribute="width" id="9fK-nc-mqU"/>
+                                                <constraint firstAttribute="width" id="3LD-dU-7cY"/>
+                                                <constraint firstAttribute="height" id="PC2-OS-Wta"/>
                                             </constraints>
                                             <vibrancyEffect>
                                                 <blurEffect style="light"/>
@@ -205,7 +206,6 @@
                                     <constraints>
                                         <constraint firstItem="8TG-jB-pwN" firstAttribute="leading" secondItem="kXJ-pz-JoW" secondAttribute="leading" id="2jC-Uy-2Dj"/>
                                         <constraint firstItem="CR4-3c-Eb4" firstAttribute="leading" secondItem="n86-fo-kIW" secondAttribute="trailing" constant="8" symbolic="YES" id="3mn-3b-BwH"/>
-                                        <constraint firstItem="u2Y-iC-0Ps" firstAttribute="top" secondItem="v6S-WQ-olc" secondAttribute="top" id="4A4-Og-Jsd"/>
                                         <constraint firstItem="kXJ-pz-JoW" firstAttribute="leading" secondItem="DB7-dn-a3P" secondAttribute="trailing" constant="8" symbolic="YES" id="4hb-gL-m4r"/>
                                         <constraint firstAttribute="centerX" secondItem="8TG-jB-pwN" secondAttribute="centerX" constant="-42.5" id="4qT-7b-itT"/>
                                         <constraint firstItem="oay-EK-a3B" firstAttribute="baseline" secondItem="k8w-U3-V4h" secondAttribute="baseline" id="5Rx-3b-x0W"/>
@@ -216,17 +216,17 @@
                                         <constraint firstItem="oay-EK-a3B" firstAttribute="leading" secondItem="k8w-U3-V4h" secondAttribute="trailing" constant="8" symbolic="YES" id="Jm3-nA-XZu"/>
                                         <constraint firstItem="n86-fo-kIW" firstAttribute="baseline" secondItem="CR4-3c-Eb4" secondAttribute="baseline" id="JoF-F3-q6Z"/>
                                         <constraint firstAttribute="centerX" secondItem="kXJ-pz-JoW" secondAttribute="centerX" constant="-42.5" id="L0R-uq-fkF"/>
+                                        <constraint firstItem="u2Y-iC-0Ps" firstAttribute="top" secondItem="v6S-WQ-olc" secondAttribute="top" id="Lo2-Xb-wBM"/>
                                         <constraint firstAttribute="centerX" secondItem="oay-EK-a3B" secondAttribute="centerX" constant="-42.5" id="Qq6-rk-ttj"/>
                                         <constraint firstItem="2at-mC-nwq" firstAttribute="baseline" secondItem="8TG-jB-pwN" secondAttribute="baseline" id="UHz-K0-mVz"/>
                                         <constraint firstItem="k8w-U3-V4h" firstAttribute="top" secondItem="2at-mC-nwq" secondAttribute="bottom" constant="38" id="UvV-nG-bC5"/>
+                                        <constraint firstItem="u2Y-iC-0Ps" firstAttribute="leading" secondItem="v6S-WQ-olc" secondAttribute="leading" id="YxZ-0c-9b7"/>
                                         <constraint firstItem="CR4-3c-Eb4" firstAttribute="trailing" secondItem="oay-EK-a3B" secondAttribute="trailing" id="cEw-XK-oAk"/>
                                         <constraint firstItem="DB7-dn-a3P" firstAttribute="baseline" secondItem="kXJ-pz-JoW" secondAttribute="baseline" id="dDY-5E-t28"/>
-                                        <constraint firstItem="u2Y-iC-0Ps" firstAttribute="leading" secondItem="v6S-WQ-olc" secondAttribute="leading" id="hPl-Hd-BI0"/>
                                         <constraint firstItem="n86-fo-kIW" firstAttribute="top" secondItem="k8w-U3-V4h" secondAttribute="bottom" constant="38" id="i56-JQ-Rag"/>
                                         <constraint firstItem="8TG-jB-pwN" firstAttribute="leading" secondItem="oay-EK-a3B" secondAttribute="leading" id="iOh-V2-sSd"/>
                                         <constraint firstItem="CR4-3c-Eb4" firstAttribute="leading" secondItem="oay-EK-a3B" secondAttribute="leading" id="nZs-rT-Q6U"/>
                                         <constraint firstItem="8TG-jB-pwN" firstAttribute="trailing" secondItem="kXJ-pz-JoW" secondAttribute="trailing" id="r1z-20-Y25"/>
-                                        <constraint firstAttribute="bottom" secondItem="u2Y-iC-0Ps" secondAttribute="bottom" id="vPV-wI-I2h"/>
                                         <constraint firstItem="8TG-jB-pwN" firstAttribute="leading" secondItem="2at-mC-nwq" secondAttribute="trailing" constant="8" symbolic="YES" id="yt1-6v-ph4"/>
                                     </constraints>
                                 </view>

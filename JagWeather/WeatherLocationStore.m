@@ -54,7 +54,7 @@ static WeatherLocationStore *sharedStore = nil;
         WeatherLocation *location3 = [[WeatherLocation alloc] initWithCity:@"Hong Kong"
                                                                 State:@""
                                                               Country:@"Hong Kong"];
-        [location3 setCoordinate:CLLocationCoordinate2DMake(39.6396194, -86.1446483)];
+        [location3 setCoordinate:CLLocationCoordinate2DMake(22.3700556, 114.1223784)];
         [allLocations addObject:location3];
     }
     
