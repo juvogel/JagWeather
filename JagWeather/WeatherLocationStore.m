@@ -46,6 +46,10 @@ static WeatherLocationStore *sharedStore = nil;
 	[fetchRequest setEntity:entity];
 	NSError *error;
 	
+	if ([[context executeFetchRequest:fetchRequest error:&error] count] == 0) {
+		[self createLocationFromString:nil Latitude:nil Longitude:nil];
+	}
+	
 	return [context executeFetchRequest:fetchRequest error:&error];
 }
 
@@ -78,8 +82,8 @@ static WeatherLocationStore *sharedStore = nil;
 }
 
 -(WeatherLocation *)createLocationFromString:(NSString *)incomingString
-					   Latitude:(NSNumber *)incomingLatitude
-					  Longitude:(NSNumber *)incomingLongitude {
+									Latitude:(NSNumber *)incomingLatitude
+								   Longitude:(NSNumber *)incomingLongitude {
 	
 	WeatherLocation *newLocation = [NSEntityDescription insertNewObjectForEntityForName:@"WeatherLocation" inManagedObjectContext:context];
 	

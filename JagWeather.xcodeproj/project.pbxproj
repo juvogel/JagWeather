@@ -111,6 +111,8 @@
 				C5656B341A92D0560007715D /* MapViewController.m */,
 				C5B8A5621AC11A3700E8C6AE /* AddLocationViewController.h */,
 				C5B8A5631AC11A3700E8C6AE /* AddLocationViewController.m */,
+				C5F90DB51ADDF29E00C498CC /* WeatherTableViewCell.h */,
+				C5F90DB61ADDF29E00C498CC /* WeatherTableViewCell.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -159,8 +161,6 @@
 				C577DF251AB0D11400ACE791 /* APIManager.h */,
 				C577DF261AB0D11400ACE791 /* APIManager.m */,
 				C57E3BBB1ADDC99800798EE9 /* NSManagedObjects */,
-				C5F90DB51ADDF29E00C498CC /* WeatherTableViewCell.h */,
-				C5F90DB61ADDF29E00C498CC /* WeatherTableViewCell.m */,
 			);
 			path = JagWeather;
 			sourceTree = "<group>";
@@ -443,6 +443,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = JagWeather/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -456,6 +457,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = JagWeather/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

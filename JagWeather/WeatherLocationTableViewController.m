@@ -17,9 +17,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
-    
-    [self loadInitialData];
+    //self.navigationItem.leftBarButtonItem = self.editButtonItem;
+	
+	locationManager = [[CLLocationManager alloc] init];
+	locationManager.delegate = self;
+	[locationManager requestWhenInUseAuthorization];
+	[locationManager startUpdatingLocation];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableData) name:@"APIDataProcessed" object:nil];
 }
@@ -37,6 +40,33 @@
 -(void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+	NSLog(@"didFailWithError: %@", error);
+	UIAlertView *errorAlert = [[UIAlertView alloc]
+							   initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+	[errorAlert show];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+	currentLocation = newLocation;
+	
+	if (currentLocation != nil) {
+		[[[WeatherLocationStore sharedStore] getWeatherLocationAtIndex:0] setLatitude:[NSNumber numberWithDouble:currentLocation.coordinate.latitude]];
+		[[[WeatherLocationStore sharedStore] getWeatherLocationAtIndex:0] setLongitude:[NSNumber numberWithDouble:currentLocation.coordinate.longitude]];
+	}
+	
+	// Stop Location Manager
+	[locationManager stopUpdatingLocation];
+	
+	[self loadInitialData];
+	
+	[self reloadTableData];
 }
 
 #pragma mark - Table view data source

@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 #import "WeatherLocation.h"
 
-@interface WeatherLocationTableViewController : UITableViewController
+@interface WeatherLocationTableViewController : UITableViewController <CLLocationManagerDelegate> {
+	CLLocationManager *locationManager;
+	CLLocation *currentLocation;
+}
 
 @end

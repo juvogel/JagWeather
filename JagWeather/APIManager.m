@@ -85,6 +85,11 @@ static APIManager *sharedManager = nil;
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"APIDataProcessed" object:self];
     } else if ([locationAPIData objectForKey:@"current_observation"] != NULL) {
+		// set location info if it is not there
+		if ([incomingLocation city] == nil) {
+			[incomingLocation setCity:[[[locationAPIData objectForKey:@"current_observation"] objectForKey:@"display_location"] objectForKey:@"city"]];
+			[incomingLocation setState:[[[locationAPIData objectForKey:@"current_observation"] objectForKey:@"display_location"] objectForKey:@"state"]];
+		}
         [incomingLocation setTempF:[[locationAPIData objectForKey:@"current_observation"] objectForKey:@"temp_f"]];
         [incomingLocation setCondition:[[locationAPIData objectForKey:@"current_observation"] objectForKey:@"weather"]];
         [incomingLocation setHumidity:[[locationAPIData objectForKey:@"current_observation"] objectForKey:@"relative_humidity"]];
@@ -97,7 +102,7 @@ static APIManager *sharedManager = nil;
 		[self resolveConditionIcon:incomingLocation];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"APIDataProcessed" object:self];
-    }
+	}
 }
 
 -(void)resolveConditionIcon:(WeatherLocation *)incomingLocation {
