@@ -27,6 +27,7 @@
 		C577DF271AB0D11400ACE791 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C577DF261AB0D11400ACE791 /* APIManager.m */; };
 		C5B8A5641AC11A3700E8C6AE /* AddLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B8A5631AC11A3700E8C6AE /* AddLocationViewController.m */; };
 		C5F0355D1ADD5E3B00013D1B /* WeatherLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F0355C1ADD5E3B00013D1B /* WeatherLocation.m */; };
+		C5F90DB71ADDF29E00C498CC /* WeatherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F90DB61ADDF29E00C498CC /* WeatherTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,8 @@
 		C5B8A5631AC11A3700E8C6AE /* AddLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddLocationViewController.m; sourceTree = "<group>"; };
 		C5F0355B1ADD5E3B00013D1B /* WeatherLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherLocation.h; sourceTree = "<group>"; };
 		C5F0355C1ADD5E3B00013D1B /* WeatherLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherLocation.m; sourceTree = "<group>"; };
+		C5F90DB51ADDF29E00C498CC /* WeatherTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherTableViewCell.h; sourceTree = "<group>"; };
+		C5F90DB61ADDF29E00C498CC /* WeatherTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,8 +158,9 @@
 				C577DF231AB0CB4300ACE791 /* WeatherLocationStore.m */,
 				C577DF251AB0D11400ACE791 /* APIManager.h */,
 				C577DF261AB0D11400ACE791 /* APIManager.m */,
-				C5F0355B1ADD5E3B00013D1B /* WeatherLocation.h */,
-				C5F0355C1ADD5E3B00013D1B /* WeatherLocation.m */,
+				C57E3BBB1ADDC99800798EE9 /* NSManagedObjects */,
+				C5F90DB51ADDF29E00C498CC /* WeatherTableViewCell.h */,
+				C5F90DB61ADDF29E00C498CC /* WeatherTableViewCell.m */,
 			);
 			path = JagWeather;
 			sourceTree = "<group>";
@@ -188,6 +192,15 @@
 				C542FA0A1A7EFE1500E3557D /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C57E3BBB1ADDC99800798EE9 /* NSManagedObjects */ = {
+			isa = PBXGroup;
+			children = (
+				C5F0355B1ADD5E3B00013D1B /* WeatherLocation.h */,
+				C5F0355C1ADD5E3B00013D1B /* WeatherLocation.m */,
+			);
+			name = NSManagedObjects;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -302,6 +315,7 @@
 				C577DF271AB0D11400ACE791 /* APIManager.m in Sources */,
 				C542F9F21A7EFE1500E3557D /* AppDelegate.m in Sources */,
 				C542F9F51A7EFE1500E3557D /* JagWeather.xcdatamodeld in Sources */,
+				C5F90DB71ADDF29E00C498CC /* WeatherTableViewCell.m in Sources */,
 				C542F9EF1A7EFE1500E3557D /* main.m in Sources */,
 				C5656B351A92D0560007715D /* MapViewController.m in Sources */,
 				C577DF241AB0CB4300ACE791 /* WeatherLocationStore.m in Sources */,

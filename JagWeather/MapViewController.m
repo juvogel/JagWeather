@@ -15,9 +15,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    CLLocationCoordinate2D loc = [selectedLocation coordinate];
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 10000, 10000);
+	
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake([[selectedLocation latitude] doubleValue], [[selectedLocation longitude] doubleValue]), 10000, 10000);
     [worldView setRegion:region animated:YES];
 }
 

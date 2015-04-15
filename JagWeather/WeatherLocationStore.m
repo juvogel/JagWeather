@@ -8,17 +8,21 @@
 
 #import "WeatherLocationStore.h"
 #import "APIManager.h"
-#import "AppDelegate.h"
 
 @implementation WeatherLocationStore
 
-@synthesize newLocation;
+@synthesize appDelegate, context;
 
 static WeatherLocationStore *sharedStore = nil;
 
 -(instancetype)init {
     self = [super init];
-    
+	
+	if (self) {
+		appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+		context = [appDelegate managedObjectContext];
+	}
+	
     return self;
 }
 
@@ -38,8 +42,6 @@ static WeatherLocationStore *sharedStore = nil;
 -(NSArray *)getAllLocations {
 	
 	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-	AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-	NSManagedObjectContext *context = [appDelegate managedObjectContext];
 	NSEntityDescription *entity = [NSEntityDescription entityForName:@"WeatherLocation" inManagedObjectContext:context];
 	[fetchRequest setEntity:entity];
 	NSError *error;
@@ -47,16 +49,17 @@ static WeatherLocationStore *sharedStore = nil;
 	return [context executeFetchRequest:fetchRequest error:&error];
 }
 
+-(WeatherLocation *)getWeatherLocationAtIndex:(NSInteger)index {
+	return [[self getAllLocations] objectAtIndex:index];
+}
+
 -(void)createLocationWithCity:(NSString *)incomingCity
 						State:(NSString *)incomingState
 					  Country:(NSString *)incomingCountry
 					 Latitude:(NSNumber *)incomingLatitude
 					Longitude:(NSNumber *)incomingLongitude {
-    
-	AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-	NSManagedObjectContext *context = [appDelegate managedObjectContext];
 	
-	newLocation = [NSEntityDescription insertNewObjectForEntityForName:@"WeatherLocation" inManagedObjectContext:context];
+	WeatherLocation *newLocation = [NSEntityDescription insertNewObjectForEntityForName:@"WeatherLocation" inManagedObjectContext:context];
 	
 	// set properties
 	[newLocation setCity:incomingCity];
@@ -70,18 +73,15 @@ static WeatherLocationStore *sharedStore = nil;
 	
 	// save the author object
 	if (![context save:&error]) {
-		NSLog(@"Something appears to have went awry! Error message: %@", [error localizedDescription]);
+		NSLog(@"Something appears to have gone awry! Error message: %@", [error localizedDescription]);
 	}
 }
 
--(void)createLocationFromString:(NSString *)incomingString
+-(WeatherLocation *)createLocationFromString:(NSString *)incomingString
 					   Latitude:(NSNumber *)incomingLatitude
 					  Longitude:(NSNumber *)incomingLongitude {
 	
-	AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-	NSManagedObjectContext *context = [appDelegate managedObjectContext];
-	
-	newLocation = [NSEntityDescription insertNewObjectForEntityForName:@"WeatherLocation" inManagedObjectContext:context];
+	WeatherLocation *newLocation = [NSEntityDescription insertNewObjectForEntityForName:@"WeatherLocation" inManagedObjectContext:context];
 	
 	// set properties
 	NSArray *locationNameArray = [incomingString componentsSeparatedByString:@", "];
@@ -99,24 +99,35 @@ static WeatherLocationStore *sharedStore = nil;
 	
 	[newLocation setLatitude:incomingLatitude];
 	[newLocation setLongitude:incomingLongitude];
+	
+	return newLocation;
+}
+
+-(void)addLocation:(WeatherLocation *)incomingLocation {
+	[context insertObject:incomingLocation];
+	
+	NSError *error;
+	if (![context save:&error]) {
+		NSLog(@"Something appears to have gone awry! Error message: %@", [error localizedDescription]);
+	}
 }
 
 -(void)removeLocation:(NSInteger)index {
-	AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-	NSManagedObjectContext *context = [appDelegate managedObjectContext];
 	
 	[context deleteObject:[[self getAllLocations] objectAtIndex:index]];
 	
 	NSError *error;
 	if (![context save:&error]) {
-		NSLog(@"Something appears to have went awry! Error message: %@", [error localizedDescription]);
+		NSLog(@"Something appears to have gone awry! Error message: %@", [error localizedDescription]);
 	}
 }
 
+/*
 -(void)reorderLocationFromIndex:(NSInteger)fromIndex toIndexPath:(NSInteger)toIndex {
-    WeatherLocation *object = [[self getAllLocations] objectAtIndex:fromIndex];
+    WeatherLocation *locationBeingMoved = [[self getAllLocations] objectAtIndex:fromIndex];
     [self removeLocation:fromIndex];
-    [allLocations insertObject:object atIndex:toIndex];
+    [self addLocation:locationBeingMoved atIndex:toIndex];
 }
+*/
 
 @end

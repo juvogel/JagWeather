@@ -42,13 +42,13 @@ static APIManager *sharedManager = nil;
 }
 
 -(void)fetchWeatherConditions:(WeatherLocation *)incomingLocation {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@conditions/q/%f,%f.json", weatherAPIURL, [incomingLocation coordinate].latitude, [incomingLocation coordinate].longitude]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@conditions/q/%@,%@.json", weatherAPIURL, [incomingLocation latitude], [incomingLocation longitude]]];
     
     [self fetchJSONFromAPI:url withLocation:incomingLocation];
 }
 
 -(void)fetchWeatherForecast:(WeatherLocation *)incomingLocation {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@forecast/q/%f,%f.json", weatherAPIURL, [incomingLocation coordinate].latitude, [incomingLocation coordinate].longitude]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@forecast/q/%@,%@.json", weatherAPIURL, [incomingLocation latitude], [incomingLocation longitude]]];
     
     [self fetchJSONFromAPI:url withLocation:incomingLocation];
 }
@@ -79,13 +79,13 @@ static APIManager *sharedManager = nil;
 -(void)parseJSON:(NSDictionary *)locationAPIData withLocation:(WeatherLocation *)incomingLocation {
     if ([locationAPIData objectForKey:@"forecast"] != NULL) {
         // fetch high temp
-        [incomingLocation setHigh:[[[[[[[locationAPIData objectForKey:@"forecast"] objectForKey:@"simpleforecast"] objectForKey:@"forecastday"] objectAtIndex:0] objectForKey:@"high"] objectForKey:@"fahrenheit"] integerValue]];
+        [incomingLocation setHigh:[NSDecimalNumber decimalNumberWithString:[[[[[[locationAPIData objectForKey:@"forecast"] objectForKey:@"simpleforecast"] objectForKey:@"forecastday"] objectAtIndex:0] objectForKey:@"high"] objectForKey:@"fahrenheit"]]];
         // fetch low temp
-        [incomingLocation setLow:[[[[[[[locationAPIData objectForKey:@"forecast"] objectForKey:@"simpleforecast"] objectForKey:@"forecastday"] objectAtIndex:0] objectForKey:@"low"] objectForKey:@"fahrenheit"] integerValue]];
+        [incomingLocation setLow:[NSDecimalNumber decimalNumberWithString:[[[[[[locationAPIData objectForKey:@"forecast"] objectForKey:@"simpleforecast"] objectForKey:@"forecastday"] objectAtIndex:0] objectForKey:@"low"] objectForKey:@"fahrenheit"]]];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"APIDataProcessed" object:self];
     } else if ([locationAPIData objectForKey:@"current_observation"] != NULL) {
-        [incomingLocation setTempF:[[[locationAPIData objectForKey:@"current_observation"] objectForKey:@"temp_f"] integerValue]];
+        [incomingLocation setTempF:[[locationAPIData objectForKey:@"current_observation"] objectForKey:@"temp_f"]];
         [incomingLocation setCondition:[[locationAPIData objectForKey:@"current_observation"] objectForKey:@"weather"]];
         [incomingLocation setHumidity:[[locationAPIData objectForKey:@"current_observation"] objectForKey:@"relative_humidity"]];
         // fetch wind
@@ -93,10 +93,80 @@ static APIManager *sharedManager = nil;
         // fetch pressure
         [incomingLocation setPressure:[NSString stringWithFormat:@"%@ in", [[locationAPIData objectForKey:@"current_observation"] objectForKey:@"pressure_in"]]];
         // fetch feels like temp
-        [incomingLocation setFeelsLike:[[[locationAPIData objectForKey:@"current_observation"] objectForKey:@"feelslike_f"] integerValue]];
+        [incomingLocation setFeelsLike:[NSDecimalNumber decimalNumberWithString:[[locationAPIData objectForKey:@"current_observation"] objectForKey:@"feelslike_f"]]];
+		[self resolveConditionIcon:incomingLocation];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"APIDataProcessed" object:self];
     }
+}
+
+-(void)resolveConditionIcon:(WeatherLocation *)incomingLocation {
+	if ([[incomingLocation condition] rangeOfString:@"Drizzle"].location != NSNotFound) {
+		[incomingLocation setIcon:@"Q"];
+		// night
+		//[incomingLocation setIcon:@"7"];
+	} else if ([[incomingLocation condition] rangeOfString:@"Light Rain"].location != NSNotFound) {
+		[incomingLocation setIcon:@"Q"];
+		// night
+		//[incomingLocation setIcon:@"7"];
+	} else if ([[incomingLocation condition] rangeOfString:@"Rain"].location != NSNotFound) {
+		[incomingLocation setIcon:@"R"];
+		// night
+		//[incomingLocation setIcon:@"8"];
+	} else if ([[incomingLocation condition] rangeOfString:@"Light Snow"].location != NSNotFound) {
+		[incomingLocation setIcon:@"U"];
+		// night
+		//[incomingLocation setIcon:@"\""];
+	} else if ([[incomingLocation condition] rangeOfString:@"Snow"].location != NSNotFound) {
+		[incomingLocation setIcon:@"W"];
+		// night
+		//[incomingLocation setIcon:@"#"];
+	} else if ([[incomingLocation condition] rangeOfString:@"Flurries"].location != NSNotFound) {
+		[incomingLocation setIcon:@"U"];
+		// night
+		//[incomingLocation setIcon:@"\""];
+	} else if ([[incomingLocation condition] rangeOfString:@"Hail"].location != NSNotFound) {
+		[incomingLocation setIcon:@"X"];
+		// night
+		//[incomingLocation setIcon:@"$"];
+	} else if ([[incomingLocation condition] rangeOfString:@"Mist"].location != NSNotFound) {
+		[incomingLocation setIcon:@"L"];
+	} else if ([[incomingLocation condition] rangeOfString:@"Fog"].location != NSNotFound) {
+		[incomingLocation setIcon:@"M"];
+	} else if ([[incomingLocation condition] rangeOfString:@"Thunderstorms"].location != NSNotFound) {
+		[incomingLocation setIcon:@"Z"];
+		// night
+		//[incomingLocation setIcon:@"&"];
+	} else if ([[incomingLocation condition] rangeOfString:@"Thunderstorm"].location != NSNotFound) {
+		[incomingLocation setIcon:@"O"];
+		// night
+		//[incomingLocation setIcon:@"6"];
+	} else if ([[incomingLocation condition] rangeOfString:@"Overcast"].location != NSNotFound) {
+		[incomingLocation setIcon:@"Y"];
+		// night
+		//[incomingLocation setIcon:@"%"];
+	} else if ([[incomingLocation condition] rangeOfString:@"Haze"].location != NSNotFound) {
+		[incomingLocation setIcon:@"A"];
+	} else if ([[incomingLocation condition] rangeOfString:@"Clear"].location != NSNotFound) {
+		// if UTC time is less than sunset and greater than sunrise
+		[incomingLocation setIcon:@"B"];
+		// else
+		//[incomingLocation setIcon:@"C"];
+	} else if ([[incomingLocation condition] rangeOfString:@"Partly Cloudy"].location != NSNotFound) {
+		[incomingLocation setIcon:@"H"];
+		// night
+		//[incomingLocation setIcon:@"4"];
+	} else if ([[incomingLocation condition] rangeOfString:@"Cloudy"].location != NSNotFound) {
+		[incomingLocation setIcon:@"N"];
+		// night
+		//[incomingLocation setIcon:@"5"];
+	} else if ([[incomingLocation condition] rangeOfString:@"Clouds"].location != NSNotFound) {
+		[incomingLocation setIcon:@"N"];
+		// night
+		//[incomingLocation setIcon:@"5"];
+	} else {
+		[incomingLocation setIcon:@"?"];
+	}
 }
 
 -(void)parseJSON:(NSDictionary *)apiData {

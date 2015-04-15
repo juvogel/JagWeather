@@ -8,10 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "WeatherLocation.h"
+#import "AppDelegate.h"
 
 @interface WeatherLocationStore : NSObject
 
-@property (nonatomic) WeatherLocation *newLocation;
+@property (nonatomic) AppDelegate *appDelegate;
+@property (nonatomic) NSManagedObjectContext *context;
 
 +(WeatherLocationStore *)sharedStore;
 
@@ -22,10 +24,11 @@
 					  Country:(NSString *)incomingCountry
 					 Latitude:(NSNumber *)incomingLatitude
 					Longitude:(NSNumber *)incomingLongitude;
--(void)createLocationFromString:(NSString *)incomingString
+-(WeatherLocation *)createLocationFromString:(NSString *)incomingString
 					   Latitude:(NSNumber *)incomingLatitude
 					  Longitude:(NSNumber *)incomingLongitude;
+-(void)addLocation:(WeatherLocation *)incomingLocation;
 -(void)removeLocation:(NSInteger)index;
--(void)reorderLocationFromIndex:(NSInteger)fromIndex toIndexPath:(NSInteger)toIndex;
+//-(void)reorderLocationFromIndex:(NSInteger)fromIndex toIndexPath:(NSInteger)toIndex;
 
 @end

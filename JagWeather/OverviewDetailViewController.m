@@ -25,7 +25,7 @@
     [currentWind setText:[selectedLocation wind]];
     [currentHumidity setText:[selectedLocation humidity]];
     [currentPressure setText:[selectedLocation pressure]];
-    [currentFeelsLike setText:[NSString stringWithFormat:@"%ld\u00B0", [selectedLocation feelsLike]]];
+    [currentFeelsLike setText:[NSString stringWithFormat:@"%@\u00B0", [selectedLocation feelsLike]]];
     
     // Recognize when screen is tapped
     UITapGestureRecognizer *singleFingerTap =

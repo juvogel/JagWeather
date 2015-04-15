@@ -11,6 +11,7 @@
 #import "OverviewViewController.h"
 #import "WeatherLocationStore.h"
 #import "APIManager.h"
+#import "WeatherTableViewCell.h"
 
 @implementation WeatherLocationTableViewController
 
@@ -51,13 +52,20 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ListPrototypeCell" forIndexPath:indexPath];
-    
+    WeatherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"weatherCell" forIndexPath:indexPath];
+	
     // Configure the cell...
-    
+	
+	if (cell == nil)
+	{
+		NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"weatherCell" owner:self options:nil];
+		cell = [nib objectAtIndex:0];
+	}
+	
     WeatherLocation *thisLocation = [[[WeatherLocationStore sharedStore] getAllLocations] objectAtIndex:[indexPath row]];
-    [[cell textLabel] setText:[thisLocation fullName]];
-    [[cell detailTextLabel] setText:[NSString stringWithFormat:@"%ld\u00B0", (long)[thisLocation tempF]]];
+    [[cell cityNameLabel] setText:[thisLocation city]];
+    [[cell temperatureLabel] setText:[NSString stringWithFormat:@"%@", [thisLocation tempF]]];
+	[[cell weatherIconLabel] setText:[thisLocation icon]];
     
     return cell;
 }
@@ -82,11 +90,13 @@
     }   
 }
 
+/*
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
     [[WeatherLocationStore sharedStore] reorderLocationFromIndex:[fromIndexPath row] toIndexPath:[toIndexPath row]];
     [self reloadTableData];
 }
+*/
 
 // Override to support conditional rearranging of the table view.
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {

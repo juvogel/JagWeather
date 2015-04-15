@@ -26,7 +26,7 @@
     searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     searchController.searchResultsUpdater = self;
     searchController.searchBar.delegate = self;
-    
+	
     // style
     searchController.dimsBackgroundDuringPresentation = NO;
     searchController.hidesNavigationBarDuringPresentation = NO;
@@ -35,7 +35,9 @@
     
     self.navigationItem.titleView = self.searchController.searchBar;
     self.definesPresentationContext = YES;
-    
+	[searchController setActive:YES];
+	[searchController.searchBar becomeFirstResponder];
+	
 }
 
 -(void)updateTable {
@@ -90,7 +92,7 @@
     NSDictionary *selectedLocationInfo = [searchResults objectAtIndex:[indexPath row]];
     
     // Set weather location from dictionary
-	[[WeatherLocationStore sharedStore] createLocationFromString:[selectedLocationInfo objectForKey:@"name"] Latitude:[selectedLocationInfo objectForKey:@"lat"] Longitude:[selectedLocationInfo objectForKey:@"lon"]];
+	WeatherLocation *newLocation = [[WeatherLocationStore sharedStore] createLocationFromString:[selectedLocationInfo objectForKey:@"name"] Latitude:[NSDecimalNumber decimalNumberWithString:[selectedLocationInfo objectForKey:@"lat"]] Longitude:[NSDecimalNumber decimalNumberWithString:[selectedLocationInfo objectForKey:@"lon"]]];
     
     // Dismiss view
     [self.presentingViewController dismissViewControllerAnimated:YES completion:^{

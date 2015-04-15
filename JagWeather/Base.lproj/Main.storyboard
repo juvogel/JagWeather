@@ -10,32 +10,59 @@
         <scene sceneID="Lko-Uy-c2c">
             <objects>
                 <tableViewController id="kWM-gv-pPo" customClass="WeatherLocationTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="JwS-XD-1zJ">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="22" sectionFooterHeight="22" id="JwS-XD-1zJ">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ListPrototypeCell" textLabel="Plo-Bp-JYi" detailTextLabel="DeX-WI-fTw" style="IBUITableViewCellStyleValue1" id="KOY-mg-8Hd">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="weatherCell" rowHeight="65" id="KOY-mg-8Hd" customClass="WeatherTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KOY-mg-8Hd" id="Ewn-CX-GRh">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Indianapolis" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Plo-Bp-JYi">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8D8-4f-JNx">
+                                            <rect key="frame" x="8" y="16" width="0.0" height="32"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DeX-WI-fTw">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4nW-i6-9Tn">
+                                            <rect key="frame" x="560" y="11" width="24" height="41"/>
+                                            <fontDescription key="fontDescription" type="system" weight="thin" pointSize="34"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="°" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6AI-h9-gy9">
+                                            <rect key="frame" x="584" y="16" width="8" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lF1-LG-Twi">
+                                            <rect key="frame" x="504" y="11" width="39" height="41"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="34"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="centerY" secondItem="lF1-LG-Twi" secondAttribute="centerY" id="2TO-jM-fA7"/>
+                                        <constraint firstItem="8D8-4f-JNx" firstAttribute="top" secondItem="Ewn-CX-GRh" secondAttribute="topMargin" constant="8" id="5Ih-pu-0fC"/>
+                                        <constraint firstItem="8D8-4f-JNx" firstAttribute="leading" secondItem="Ewn-CX-GRh" secondAttribute="leadingMargin" id="DyW-py-YGv"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="6AI-h9-gy9" secondAttribute="bottom" constant="19" id="Eaq-dc-Uzb"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="6AI-h9-gy9" secondAttribute="trailing" id="I8L-58-ien"/>
+                                        <constraint firstItem="6AI-h9-gy9" firstAttribute="leading" secondItem="4nW-i6-9Tn" secondAttribute="trailing" id="QJR-Bv-EMQ"/>
+                                        <constraint firstItem="4nW-i6-9Tn" firstAttribute="leading" secondItem="lF1-LG-Twi" secondAttribute="trailing" constant="17" id="T9C-Dw-osl"/>
+                                        <constraint firstItem="6AI-h9-gy9" firstAttribute="top" secondItem="Ewn-CX-GRh" secondAttribute="topMargin" constant="8" id="afd-0T-3AI"/>
+                                        <constraint firstAttribute="centerY" secondItem="4nW-i6-9Tn" secondAttribute="centerY" constant="0.5" id="d4T-NP-XOP"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="8D8-4f-JNx" secondAttribute="bottom" constant="8" id="nEr-dr-9vk"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <accessibility key="accessibilityConfiguration" label=""/>
                                 <connections>
+                                    <outlet property="cityNameLabel" destination="8D8-4f-JNx" id="00q-uW-YkZ"/>
+                                    <outlet property="temperatureLabel" destination="4nW-i6-9Tn" id="62g-QD-63b"/>
+                                    <outlet property="weatherIconLabel" destination="lF1-LG-Twi" id="9r4-Cx-pZZ"/>
                                     <segue destination="sMS-cS-BFH" kind="show" identifier="LocationOverviewSegue" id="hbD-E2-eux"/>
                                 </connections>
                             </tableViewCell>

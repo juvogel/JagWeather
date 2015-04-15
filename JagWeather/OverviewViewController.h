@@ -24,6 +24,4 @@
 @property (nonatomic) IBOutlet UILabel *currentPressure;
 @property (nonatomic) IBOutlet UILabel *currentFeelsLike;
 
--(void)resolveConditionIcon;
-
 @end

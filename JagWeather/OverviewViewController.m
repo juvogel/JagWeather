@@ -29,17 +29,17 @@
     [currentHigh setTextColor:[UIColor whiteColor]];
     [currentLow setTextColor:[UIColor whiteColor]];
     [currentConditionIcon setTextColor:[UIColor whiteColor]];
-    
+	
+	// set custom font for condition icon
+	currentConditionIcon.font = [UIFont fontWithName:@"Meteocons" size:24];
+	
     // set labels for weather condition
     [locationField setText:[selectedLocation city]];
-    [currentTemperature setText:[NSString stringWithFormat:@"%ld\u00B0", (long)[selectedLocation tempF]]];
+    [currentTemperature setText:[NSString stringWithFormat:@"%@\u00B0", [selectedLocation tempF]]];
     [currentCondition setText:[selectedLocation condition]];
-    [currentHigh setText:[NSString stringWithFormat:@"%ld", (long)[selectedLocation high]]];
-    [currentLow setText:[NSString stringWithFormat:@"%ld", (long)[selectedLocation low]]];
-    
-    // set custom font for condition icon
-    currentConditionIcon.font = [UIFont fontWithName:@"Meteocons" size:24];
-    [self resolveConditionIcon];
+    [currentHigh setText:[NSString stringWithFormat:@"%@", [selectedLocation high]]];
+    [currentLow setText:[NSString stringWithFormat:@"%@", [selectedLocation low]]];
+	[currentConditionIcon setText:[selectedLocation icon]];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLabels) name:@"APIDataProcessed" object:nil];
     
@@ -56,80 +56,11 @@
 }
 
 -(void)updateLabels {
-    [currentTemperature setText:[NSString stringWithFormat:@"%ld\u00B0", (long)[selectedLocation tempF]]];
+    [currentTemperature setText:[NSString stringWithFormat:@"%@\u00B0", [selectedLocation tempF]]];
     [currentCondition setText:[selectedLocation condition]];
-    [currentHigh setText:[NSString stringWithFormat:@"%ld", (long)[selectedLocation high]]];
-    [currentLow setText:[NSString stringWithFormat:@"%ld", (long)[selectedLocation low]]];
-    [self resolveConditionIcon];
-}
-
--(void)resolveConditionIcon {
-    if ([[selectedLocation condition] rangeOfString:@"Drizzle"].location != NSNotFound) {
-        [currentConditionIcon setText:@"Q"];
-        // night
-        //[currentConditionIcon setText:@"7"];
-    } else if ([[selectedLocation condition] rangeOfString:@"Light Rain"].location != NSNotFound) {
-        [currentConditionIcon setText:@"Q"];
-        // night
-        //[currentConditionIcon setText:@"7"];
-    } else if ([[selectedLocation condition] rangeOfString:@"Rain"].location != NSNotFound) {
-        [currentConditionIcon setText:@"R"];
-        // night
-        //[currentConditionIcon setText:@"8"];
-    } else if ([[selectedLocation condition] rangeOfString:@"Light Snow"].location != NSNotFound) {
-        [currentConditionIcon setText:@"U"];
-        // night
-        //[currentConditionIcon setText:@"\""];
-    } else if ([[selectedLocation condition] rangeOfString:@"Snow"].location != NSNotFound) {
-        [currentConditionIcon setText:@"W"];
-        // night
-        //[currentConditionIcon setText:@"#"];
-    } else if ([[selectedLocation condition] rangeOfString:@"Flurries"].location != NSNotFound) {
-        [currentConditionIcon setText:@"U"];
-        // night
-        //[currentConditionIcon setText:@"\""];
-    } else if ([[selectedLocation condition] rangeOfString:@"Hail"].location != NSNotFound) {
-        [currentConditionIcon setText:@"X"];
-        // night
-        //[currentConditionIcon setText:@"$"];
-    } else if ([[selectedLocation condition] rangeOfString:@"Mist"].location != NSNotFound) {
-        [currentConditionIcon setText:@"L"];
-    } else if ([[selectedLocation condition] rangeOfString:@"Fog"].location != NSNotFound) {
-        [currentConditionIcon setText:@"M"];
-    } else if ([[selectedLocation condition] rangeOfString:@"Thunderstorms"].location != NSNotFound) {
-        [currentConditionIcon setText:@"Z"];
-        // night
-        //[currentConditionIcon setText:@"&"];
-    } else if ([[selectedLocation condition] rangeOfString:@"Thunderstorm"].location != NSNotFound) {
-        [currentConditionIcon setText:@"O"];
-        // night
-        //[currentConditionIcon setText:@"6"];
-    } else if ([[selectedLocation condition] rangeOfString:@"Overcast"].location != NSNotFound) {
-        [currentConditionIcon setText:@"Y"];
-        // night
-        //[currentConditionIcon setText:@"%"];
-    } else if ([[selectedLocation condition] rangeOfString:@"Haze"].location != NSNotFound) {
-        [currentConditionIcon setText:@"A"];
-    } else if ([[selectedLocation condition] rangeOfString:@"Clear"].location != NSNotFound) {
-        // if UTC time is less than sunset and greater than sunrise
-        [currentConditionIcon setText:@"B"];
-        // else
-        //[currentConditionIcon setText:@"C"];
-    } else if ([[selectedLocation condition] rangeOfString:@"Partly Cloudy"].location != NSNotFound) {
-        [currentConditionIcon setText:@"H"];
-        // night
-        //[currentConditionIcon setText:@"4"];
-    } else if ([[selectedLocation condition] rangeOfString:@"Cloudy"].location != NSNotFound) {
-        [currentConditionIcon setText:@"N"];
-        // night
-        //[currentConditionIcon setText:@"5"];
-    } else if ([[selectedLocation condition] rangeOfString:@"Clouds"].location != NSNotFound) {
-        [currentConditionIcon setText:@"N"];
-        // night
-        //[currentConditionIcon setText:@"5"];
-    } else {
-        [currentConditionIcon setText:@"?"];
-    }
+    [currentHigh setText:[NSString stringWithFormat:@"%@", [selectedLocation high]]];
+    [currentLow setText:[NSString stringWithFormat:@"%@", [selectedLocation low]]];
+	[currentConditionIcon setText:[selectedLocation icon]];
 }
 
 -(void)handleSingleTap:(UITapGestureRecognizer *)recognizer {

@@ -29,7 +29,7 @@
 
 -(NSString *)fullName {
 	if ([[self countryName] isEqualToString:@"USA"]) {
-		return [NSString stringWithFormat:@"%@, %@, %@", [self city], [self state], [self countryName]];
+		return [NSString stringWithFormat:@"%@, %@", [self city], [self state]];
 	} else {
 		return [NSString stringWithFormat:@"%@, %@", [self city], [self countryName]];
 	}
