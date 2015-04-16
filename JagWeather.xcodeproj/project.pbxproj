@@ -155,12 +155,12 @@
 				C542F9FE1A7EFE1500E3557D /* LaunchScreen.xib */,
 				C542F9F31A7EFE1500E3557D /* JagWeather.xcdatamodeld */,
 				C542F9EC1A7EFE1500E3557D /* Supporting Files */,
+				C57E3BBB1ADDC99800798EE9 /* NSManagedObjects */,
 				C50C8A131ADCD0BC0066408B /* View Controllers */,
 				C577DF221AB0CB4300ACE791 /* WeatherLocationStore.h */,
 				C577DF231AB0CB4300ACE791 /* WeatherLocationStore.m */,
 				C577DF251AB0D11400ACE791 /* APIManager.h */,
 				C577DF261AB0D11400ACE791 /* APIManager.m */,
-				C57E3BBB1ADDC99800798EE9 /* NSManagedObjects */,
 			);
 			path = JagWeather;
 			sourceTree = "<group>";

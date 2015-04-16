@@ -27,9 +27,13 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableData) name:@"APIDataProcessed" object:nil];
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+	[self loadInitialData];
+}
+
 - (void)loadInitialData {
     for (WeatherLocation *apiLocation in [[WeatherLocationStore sharedStore] getAllLocations]) {
-        [[APIManager sharedManager] fetchWeatherConditions:apiLocation];
+        [[APIManager sharedManager] fetchWeatherForLocation:apiLocation informationType:@"conditions/forecast"];
     }
 }
 
@@ -47,9 +51,6 @@
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
 	NSLog(@"didFailWithError: %@", error);
-	UIAlertView *errorAlert = [[UIAlertView alloc]
-							   initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-	[errorAlert show];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
@@ -65,7 +66,6 @@
 	[locationManager stopUpdatingLocation];
 	
 	[self loadInitialData];
-	
 	[self reloadTableData];
 }
 
@@ -100,13 +100,15 @@
     return cell;
 }
 
-/*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
-    return YES;
+	if ([indexPath row] == 0) {
+		return NO;
+	} else {
+		return YES;
+	}
 }
-*/
 
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -134,6 +136,11 @@
     return YES;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	// Do some stuff when the row is selected
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -152,9 +159,6 @@
         WeatherLocation *thisLocation = [[[WeatherLocationStore sharedStore] getAllLocations] objectAtIndex:[ip row]];
         
         [locationName setSelectedLocation:thisLocation];
-        
-        [[APIManager sharedManager] fetchWeatherConditions:thisLocation];
-        [[APIManager sharedManager] fetchWeatherForecast:thisLocation];
     }
 }
 

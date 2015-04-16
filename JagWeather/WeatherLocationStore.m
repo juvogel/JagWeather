@@ -8,6 +8,7 @@
 
 #import "WeatherLocationStore.h"
 #import "APIManager.h"
+#import <CoreLocation/CoreLocation.h>
 
 @implementation WeatherLocationStore
 
@@ -46,11 +47,13 @@ static WeatherLocationStore *sharedStore = nil;
 	[fetchRequest setEntity:entity];
 	NSError *error;
 	
-	if ([[context executeFetchRequest:fetchRequest error:&error] count] == 0) {
-		[self createLocationFromString:nil Latitude:nil Longitude:nil];
+	NSArray *allLocations = [context executeFetchRequest:fetchRequest error:&error];
+	
+	if ([allLocations count] == 0) {
+		[self createLocationFromLatitude:nil Longitude:nil];
 	}
 	
-	return [context executeFetchRequest:fetchRequest error:&error];
+	return allLocations;
 }
 
 -(WeatherLocation *)getWeatherLocationAtIndex:(NSInteger)index {
@@ -72,37 +75,30 @@ static WeatherLocationStore *sharedStore = nil;
 	[newLocation setLatitude:incomingLatitude];
 	[newLocation setLongitude:incomingLongitude];
 	
-	// create error object
-	NSError *error;
-	
-	// save the author object
-	if (![context save:&error]) {
-		NSLog(@"Something appears to have gone awry! Error message: %@", [error localizedDescription]);
-	}
+	[self saveLocation];
 }
 
--(WeatherLocation *)createLocationFromString:(NSString *)incomingString
-									Latitude:(NSNumber *)incomingLatitude
-								   Longitude:(NSNumber *)incomingLongitude {
+-(WeatherLocation *)createLocationFromLatitude:(NSNumber *)incomingLatitude
+								 Longitude:(NSNumber *)incomingLongitude {
 	
 	WeatherLocation *newLocation = [NSEntityDescription insertNewObjectForEntityForName:@"WeatherLocation" inManagedObjectContext:context];
 	
-	// set properties
-	NSArray *locationNameArray = [incomingString componentsSeparatedByString:@", "];
-	[newLocation setCity:[locationNameArray objectAtIndex:0]];
-	
-	// compare second half of string to dictionary of all US States
-	NSDictionary *states = @{ @"Alabama": @"AL", @"Alaska" : @"AK", @"Arizona" : @"AZ", @"Arkansas" : @"AR", @"California" : @"CA", @"Colorado" : @"CO", @"Connecticut" : @"CT", @"Delaware" : @"DE", @"Florida" : @"FL", @"Georgia" : @"GA", @"Hawaii" : @"HI", @"Idaho" : @"ID", @"Illinois" : @"IL", @"Indiana" : @"IN", @"Iowa" : @"IA", @"Kansas" : @"KS", @"Kentucky" : @"KY", @"Louisiana" : @"LA", @"Maine" : @"ME", @"Maryland" : @"MD", @"Massachusetts" : @"MA", @"Michigan" : @"MI", @"Minnesota" : @"MN", @"Mississippi" : @"MS", @"Missouri" : @"MO", @"Montana" : @"MT", @"Nebraska" : @"NE", @"Nevada": @"NV", @"New Hampshire" : @"NH", @"New Jersey" : @"NJ", @"New Mexico" : @"NM", @"New York" : @"NY", @"North Carolina" : @"NC", @"North Dakota" : @"ND", @"Ohio" : @"OH", @"Oklahoma" : @"OK", @"Oregon" : @"OR", @"Pennsylvania" : @"PA", @"Rhode Island" : @"RI", @"South Carolina" : @"SC", @"South Dakota" : @"SD", @"Tennessee" : @"TN", @"Texas" : @"TX", @"Utah" : @"UT", @"Vermont" : @"VT", @"Virginia" : @"VA", @"Washington" : @"WA", @"West Virginia" : @"WV", @"Wisconsin" : @"WI", @"Wyoming" : @"WY" };
-	
-	if ([states objectForKey:[NSString stringWithFormat:@"%@", [locationNameArray objectAtIndex:1]]] != nil) {
-		[newLocation setState:[states objectForKey:[locationNameArray objectAtIndex:1]]];
-		[newLocation setCountryName:@"USA"];
-	} else {
-		[newLocation setCountryName:[locationNameArray objectAtIndex:1]];
-	}
-	
 	[newLocation setLatitude:incomingLatitude];
 	[newLocation setLongitude:incomingLongitude];
+	
+	// Set location using geolocation from coordinates
+	CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+	CLLocation *location = [[CLLocation alloc] initWithLatitude:[incomingLatitude doubleValue] longitude:[incomingLongitude doubleValue]];
+	
+	[geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+		CLPlacemark *placemark = [placemarks objectAtIndex:0];
+		[newLocation setCountryName:placemark.country];
+		[newLocation setCity:placemark.name];
+		[newLocation setState:placemark.locality];
+		[newLocation setPostalCode:placemark.postalCode];
+	}];
+	
+	[self saveLocation];
 	
 	return newLocation;
 }
@@ -110,16 +106,17 @@ static WeatherLocationStore *sharedStore = nil;
 -(void)addLocation:(WeatherLocation *)incomingLocation {
 	[context insertObject:incomingLocation];
 	
-	NSError *error;
-	if (![context save:&error]) {
-		NSLog(@"Something appears to have gone awry! Error message: %@", [error localizedDescription]);
-	}
+	[self saveLocation];
 }
 
 -(void)removeLocation:(NSInteger)index {
 	
 	[context deleteObject:[[self getAllLocations] objectAtIndex:index]];
 	
+	[self saveLocation];
+}
+
+-(void)saveLocation {
 	NSError *error;
 	if (![context save:&error]) {
 		NSLog(@"Something appears to have gone awry! Error message: %@", [error localizedDescription]);

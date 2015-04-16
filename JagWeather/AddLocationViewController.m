@@ -92,11 +92,11 @@
     NSDictionary *selectedLocationInfo = [searchResults objectAtIndex:[indexPath row]];
     
     // Set weather location from dictionary
-	WeatherLocation *newLocation = [[WeatherLocationStore sharedStore] createLocationFromString:[selectedLocationInfo objectForKey:@"name"] Latitude:[NSDecimalNumber decimalNumberWithString:[selectedLocationInfo objectForKey:@"lat"]] Longitude:[NSDecimalNumber decimalNumberWithString:[selectedLocationInfo objectForKey:@"lon"]]];
+	WeatherLocation *newLocation = [[WeatherLocationStore sharedStore] createLocationFromLatitude:[NSDecimalNumber decimalNumberWithString:[selectedLocationInfo objectForKey:@"lat"]] Longitude:[NSDecimalNumber decimalNumberWithString:[selectedLocationInfo objectForKey:@"lon"]]];
     
     // Dismiss view
     [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
-        [[APIManager sharedManager] fetchWeatherConditions:newLocation];
+		[[APIManager sharedManager] fetchWeatherForLocation:newLocation informationType:@"conditions/forecast"];
     }];
 }
 

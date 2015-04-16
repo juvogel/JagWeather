@@ -7,6 +7,7 @@
 //
 
 #import "MapViewController.h"
+#import "APIManager.h"
 
 @implementation MapViewController
 
@@ -18,11 +19,19 @@
 	
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake([[selectedLocation latitude] doubleValue], [[selectedLocation longitude] doubleValue]), 10000, 10000);
     [worldView setRegion:region animated:YES];
+	
+	[self refreshRadar];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshRadar) name:@"RadarImageReceived" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)refreshRadar {
+	[[APIManager sharedManager] getRadar];
 }
 
 /*

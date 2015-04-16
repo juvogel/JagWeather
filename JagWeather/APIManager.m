@@ -41,16 +41,33 @@ static APIManager *sharedManager = nil;
     return self;
 }
 
--(void)fetchWeatherConditions:(WeatherLocation *)incomingLocation {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@conditions/q/%@,%@.json", weatherAPIURL, [incomingLocation latitude], [incomingLocation longitude]]];
+-(void)fetchWeatherForLocation:(WeatherLocation *)incomingLocation informationType:(NSString *)keyword {
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@/q/%@,%@.json", weatherAPIURL, keyword, [incomingLocation latitude], [incomingLocation longitude]]];
     
     [self fetchJSONFromAPI:url withLocation:incomingLocation];
 }
 
--(void)fetchWeatherForecast:(WeatherLocation *)incomingLocation {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@forecast/q/%@,%@.json", weatherAPIURL, [incomingLocation latitude], [incomingLocation longitude]]];
-    
-    [self fetchJSONFromAPI:url withLocation:incomingLocation];
+-(void)fetchRadar:(MKCoordinateRegion)region {
+	CGRect screenRect = [[UIScreen mainScreen] bounds];
+	CGFloat screenWidth = screenRect.size.width;
+	CGFloat screenHeight = screenRect.size.height;
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@radar/image.gif?noclutter=1&rainsnow=1&smooth=1&width=%f&height=%f&centerlat=%f&centerlon=%f&radius=%f", weatherAPIURL, screenWidth, screenHeight, region.center.latitude, region.center.longitude, region.span.longitudeDelta]];
+	NSLog(@"%@", url);
+	
+	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+	NSURLSessionDataTask *dataTask = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+		radar = (UIImage *)data;
+		
+		// run this method on main thread
+		dispatch_async(dispatch_get_main_queue(), ^{
+			[[NSNotificationCenter defaultCenter] postNotificationName:@"RadarImageReceived" object:self];
+		});
+	}];
+	[dataTask resume];
+}
+
+-(UIImage *)getRadar {
+	return radar;
 }
 
 -(void)fetchLocationsFromAPI:(NSString *)searchString {
@@ -69,8 +86,9 @@ static APIManager *sharedManager = nil;
         dispatch_async(dispatch_get_main_queue(), ^{
             if (incomingLocation) {
                 [self parseJSON:locationAPIData withLocation:incomingLocation];
-            }
-            [self parseJSON:locationAPIData];
+			} else {
+				[self parseJSON:locationAPIData];
+			}
         });
     }];
     [dataTask resume];
@@ -84,7 +102,8 @@ static APIManager *sharedManager = nil;
         [incomingLocation setLow:[NSDecimalNumber decimalNumberWithString:[[[[[[locationAPIData objectForKey:@"forecast"] objectForKey:@"simpleforecast"] objectForKey:@"forecastday"] objectAtIndex:0] objectForKey:@"low"] objectForKey:@"fahrenheit"]]];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"APIDataProcessed" object:self];
-    } else if ([locationAPIData objectForKey:@"current_observation"] != NULL) {
+    }
+	if ([locationAPIData objectForKey:@"current_observation"] != NULL) {
 		// set location info if it is not there
 		if ([incomingLocation city] == nil) {
 			[incomingLocation setCity:[[[locationAPIData objectForKey:@"current_observation"] objectForKey:@"display_location"] objectForKey:@"city"]];

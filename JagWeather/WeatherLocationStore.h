@@ -24,11 +24,11 @@
 					  Country:(NSString *)incomingCountry
 					 Latitude:(NSNumber *)incomingLatitude
 					Longitude:(NSNumber *)incomingLongitude;
--(WeatherLocation *)createLocationFromString:(NSString *)incomingString
-					   Latitude:(NSNumber *)incomingLatitude
-					  Longitude:(NSNumber *)incomingLongitude;
+-(WeatherLocation *)createLocationFromLatitude:(NSNumber *)incomingLatitude
+									 Longitude:(NSNumber *)incomingLongitude;
 -(void)addLocation:(WeatherLocation *)incomingLocation;
 -(void)removeLocation:(NSInteger)index;
+-(void)saveLocation;
 //-(void)reorderLocationFromIndex:(NSInteger)fromIndex toIndexPath:(NSInteger)toIndex;
 
 @end
