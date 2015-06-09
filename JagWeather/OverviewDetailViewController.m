@@ -10,7 +10,7 @@
 
 @implementation OverviewDetailViewController
 
-@synthesize selectedLocation, currentWind, currentHumidity, currentPressure, currentFeelsLike;
+@synthesize selectedLocation, currentWind, currentHumidity, currentPressure, currentFeelsLike, sunrise, sunset;
 
 -(void)viewDidLoad {
     [super viewDidLoad];
@@ -20,12 +20,16 @@
     [currentHumidity setTextColor:[UIColor whiteColor]];
     [currentPressure setTextColor:[UIColor whiteColor]];
     [currentFeelsLike setTextColor:[UIColor whiteColor]];
+	[sunrise setTextColor:[UIColor whiteColor]];
+	[sunset setTextColor:[UIColor whiteColor]];
     
     // Set labels for weather condition
     [currentWind setText:[selectedLocation wind]];
     [currentHumidity setText:[selectedLocation humidity]];
     [currentPressure setText:[selectedLocation pressure]];
     [currentFeelsLike setText:[NSString stringWithFormat:@"%@\u00B0", [selectedLocation feelsLike]]];
+	[sunrise setText:[selectedLocation sunrise]];
+	[sunset setText:[selectedLocation sunset]];
     
     // Recognize when screen is tapped
     UITapGestureRecognizer *singleFingerTap =

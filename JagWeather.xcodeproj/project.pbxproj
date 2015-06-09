@@ -26,6 +26,8 @@
 		C577DF241AB0CB4300ACE791 /* WeatherLocationStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C577DF231AB0CB4300ACE791 /* WeatherLocationStore.m */; };
 		C577DF271AB0D11400ACE791 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C577DF261AB0D11400ACE791 /* APIManager.m */; };
 		C5B8A5641AC11A3700E8C6AE /* AddLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B8A5631AC11A3700E8C6AE /* AddLocationViewController.m */; };
+		C5D4F7BF1B23709C0013F23F /* RadarOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D4F7BE1B23709C0013F23F /* RadarOverlay.m */; };
+		C5D4F7C21B2370CA0013F23F /* RadarOverlayRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D4F7C11B2370CA0013F23F /* RadarOverlayRenderer.m */; };
 		C5F0355D1ADD5E3B00013D1B /* WeatherLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F0355C1ADD5E3B00013D1B /* WeatherLocation.m */; };
 		C5F90DB71ADDF29E00C498CC /* WeatherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F90DB61ADDF29E00C498CC /* WeatherTableViewCell.m */; };
 /* End PBXBuildFile section */
@@ -72,6 +74,10 @@
 		C577DF261AB0D11400ACE791 /* APIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
 		C5B8A5621AC11A3700E8C6AE /* AddLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddLocationViewController.h; sourceTree = "<group>"; };
 		C5B8A5631AC11A3700E8C6AE /* AddLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddLocationViewController.m; sourceTree = "<group>"; };
+		C5D4F7BD1B23709C0013F23F /* RadarOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadarOverlay.h; sourceTree = "<group>"; };
+		C5D4F7BE1B23709C0013F23F /* RadarOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadarOverlay.m; sourceTree = "<group>"; };
+		C5D4F7C01B2370CA0013F23F /* RadarOverlayRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadarOverlayRenderer.h; sourceTree = "<group>"; };
+		C5D4F7C11B2370CA0013F23F /* RadarOverlayRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadarOverlayRenderer.m; sourceTree = "<group>"; };
 		C5F0355B1ADD5E3B00013D1B /* WeatherLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherLocation.h; sourceTree = "<group>"; };
 		C5F0355C1ADD5E3B00013D1B /* WeatherLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherLocation.m; sourceTree = "<group>"; };
 		C5F90DB51ADDF29E00C498CC /* WeatherTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherTableViewCell.h; sourceTree = "<group>"; };
@@ -157,6 +163,7 @@
 				C542F9EC1A7EFE1500E3557D /* Supporting Files */,
 				C57E3BBB1ADDC99800798EE9 /* NSManagedObjects */,
 				C50C8A131ADCD0BC0066408B /* View Controllers */,
+				C5D4F7BC1B2370750013F23F /* Overlay */,
 				C577DF221AB0CB4300ACE791 /* WeatherLocationStore.h */,
 				C577DF231AB0CB4300ACE791 /* WeatherLocationStore.m */,
 				C577DF251AB0D11400ACE791 /* APIManager.h */,
@@ -203,6 +210,17 @@
 			name = NSManagedObjects;
 			sourceTree = "<group>";
 		};
+		C5D4F7BC1B2370750013F23F /* Overlay */ = {
+			isa = PBXGroup;
+			children = (
+				C5D4F7BD1B23709C0013F23F /* RadarOverlay.h */,
+				C5D4F7BE1B23709C0013F23F /* RadarOverlay.m */,
+				C5D4F7C01B2370CA0013F23F /* RadarOverlayRenderer.h */,
+				C5D4F7C11B2370CA0013F23F /* RadarOverlayRenderer.m */,
+			);
+			name = Overlay;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -247,7 +265,7 @@
 		C542F9E11A7EFE1500E3557D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Bobby Vogel";
 				TargetAttributes = {
 					C542F9E81A7EFE1500E3557D = {
@@ -311,6 +329,8 @@
 				C53D11BF1ABCEC7900BF9241 /* OverviewDetailViewController.m in Sources */,
 				C51CE6AD1A89A32F00F39650 /* OverviewViewController.m in Sources */,
 				C51CE6AA1A89945100F39650 /* WeatherLocationTableViewController.m in Sources */,
+				C5D4F7C21B2370CA0013F23F /* RadarOverlayRenderer.m in Sources */,
+				C5D4F7BF1B23709C0013F23F /* RadarOverlay.m in Sources */,
 				C5F0355D1ADD5E3B00013D1B /* WeatherLocation.m in Sources */,
 				C577DF271AB0D11400ACE791 /* APIManager.m in Sources */,
 				C542F9F21A7EFE1500E3557D /* AppDelegate.m in Sources */,

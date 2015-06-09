@@ -15,6 +15,8 @@
 
 @implementation WeatherLocationTableViewController
 
+@dynamic refreshControl;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     //self.navigationItem.leftBarButtonItem = self.editButtonItem;
@@ -23,22 +25,37 @@
 	locationManager.delegate = self;
 	[locationManager requestWhenInUseAuthorization];
 	[locationManager startUpdatingLocation];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableData) name:@"APIDataProcessed" object:nil];
+	
+	if ([[[WeatherLocationStore sharedStore] getAllLocations] count] > 1) {
+		[self loadInitialData];
+	}
+	
+	// Refresh control
+	self.refreshControl = [[UIRefreshControl alloc] init];
+	[[self refreshControl] setBackgroundColor:[UIColor colorWithRed:0 green:.58 blue:1 alpha:1]];
+	[[self refreshControl] setTintColor:[UIColor whiteColor]];
+	[[self refreshControl] addTarget:self action:@selector(loadInitialData) forControlEvents:UIControlEventValueChanged];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
-	[self loadInitialData];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableData) name:@"APIDataProcessed" object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableData) name:@"APILocationIconUpdated" object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableData) name:@"WeatherLocationInfoUpdated" object:nil];
 }
 
 - (void)loadInitialData {
-    for (WeatherLocation *apiLocation in [[WeatherLocationStore sharedStore] getAllLocations]) {
-        [[APIManager sharedManager] fetchWeatherForLocation:apiLocation informationType:@"conditions/forecast"];
+	NSArray *locations = [[WeatherLocationStore sharedStore] getAllLocations];
+	unsigned long int arraySize = [locations count];
+	for (int i = 0; i < arraySize; ++i) {
+        [[APIManager sharedManager] fetchWeatherForLocation:locations[i] informationType:@"conditions/forecast/astronomy"];
     }
 }
 
 -(void)reloadTableData {
     [[self tableView] reloadData];
+	if ([self refreshControl]) {
+		[[self refreshControl] endRefreshing];
+	}
 }
 
 -(void)didReceiveMemoryWarning {
@@ -56,16 +73,18 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
 	currentLocation = newLocation;
+	WeatherLocation *currentWeatherLocation = [[WeatherLocationStore sharedStore] getWeatherLocationAtIndex:0];
 	
 	if (currentLocation != nil) {
-		[[[WeatherLocationStore sharedStore] getWeatherLocationAtIndex:0] setLatitude:[NSNumber numberWithDouble:currentLocation.coordinate.latitude]];
-		[[[WeatherLocationStore sharedStore] getWeatherLocationAtIndex:0] setLongitude:[NSNumber numberWithDouble:currentLocation.coordinate.longitude]];
+		[currentWeatherLocation setLatitude:[NSNumber numberWithDouble:currentLocation.coordinate.latitude]];
+		[currentWeatherLocation setLongitude:[NSNumber numberWithDouble:currentLocation.coordinate.longitude]];
+		[[WeatherLocationStore sharedStore] updateLocationInfo:currentWeatherLocation];
 	}
 	
 	// Stop Location Manager
 	[locationManager stopUpdatingLocation];
 	
-	[self loadInitialData];
+	[[APIManager sharedManager] fetchWeatherForLocation:currentWeatherLocation informationType:@"conditions/forecast/astronomy"];
 	[self reloadTableData];
 }
 

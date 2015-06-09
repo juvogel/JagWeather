@@ -15,4 +15,6 @@
 	CLLocation *currentLocation;
 }
 
+@property (nonatomic) UIRefreshControl *refreshControl;
+
 @end

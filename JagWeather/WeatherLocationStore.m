@@ -48,9 +48,12 @@ static WeatherLocationStore *sharedStore = nil;
 	NSError *error;
 	
 	NSArray *allLocations = [context executeFetchRequest:fetchRequest error:&error];
+	NSSortDescriptor *dateDescriptor = [[NSSortDescriptor alloc] initWithKey:@"creationDate" ascending:YES];
+	NSArray *dateDescriptors = @[dateDescriptor];
+	allLocations = [allLocations sortedArrayUsingDescriptors:dateDescriptors];
 	
 	if ([allLocations count] == 0) {
-		[self createLocationFromLatitude:nil Longitude:nil];
+		[self createLocationFromLatitude:nil longitude:nil withLink:nil];
 	}
 	
 	return allLocations;
@@ -61,10 +64,10 @@ static WeatherLocationStore *sharedStore = nil;
 }
 
 -(void)createLocationWithCity:(NSString *)incomingCity
-						State:(NSString *)incomingState
-					  Country:(NSString *)incomingCountry
-					 Latitude:(NSNumber *)incomingLatitude
-					Longitude:(NSNumber *)incomingLongitude {
+						state:(NSString *)incomingState
+					  country:(NSString *)incomingCountry
+					 latitude:(NSNumber *)incomingLatitude
+					longitude:(NSNumber *)incomingLongitude {
 	
 	WeatherLocation *newLocation = [NSEntityDescription insertNewObjectForEntityForName:@"WeatherLocation" inManagedObjectContext:context];
 	
@@ -79,28 +82,38 @@ static WeatherLocationStore *sharedStore = nil;
 }
 
 -(WeatherLocation *)createLocationFromLatitude:(NSNumber *)incomingLatitude
-								 Longitude:(NSNumber *)incomingLongitude {
+									 longitude:(NSNumber *)incomingLongitude
+								  withLink:(NSString *)incomingLink {
 	
 	WeatherLocation *newLocation = [NSEntityDescription insertNewObjectForEntityForName:@"WeatherLocation" inManagedObjectContext:context];
 	
 	[newLocation setLatitude:incomingLatitude];
 	[newLocation setLongitude:incomingLongitude];
+	[newLocation setLink:incomingLink];
 	
-	// Set location using geolocation from coordinates
-	CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-	CLLocation *location = [[CLLocation alloc] initWithLatitude:[incomingLatitude doubleValue] longitude:[incomingLongitude doubleValue]];
-	
-	[geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
-		CLPlacemark *placemark = [placemarks objectAtIndex:0];
-		[newLocation setCountryName:placemark.country];
-		[newLocation setCity:placemark.name];
-		[newLocation setState:placemark.locality];
-		[newLocation setPostalCode:placemark.postalCode];
-	}];
+	if ([newLocation latitude] != nil) {
+		[self updateLocationInfo:newLocation];
+	}
 	
 	[self saveLocation];
 	
 	return newLocation;
+}
+
+-(void)updateLocationInfo:(WeatherLocation *)incomingLocation {
+	// Set location using geolocation from coordinates
+	CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+	CLLocation *location = [[CLLocation alloc] initWithLatitude:[incomingLocation.latitude doubleValue] longitude:[incomingLocation.longitude doubleValue]];
+	
+	[geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+		CLPlacemark *placemark = [placemarks objectAtIndex:0];
+		[incomingLocation setCountryName:placemark.country];
+		[incomingLocation setState:placemark.administrativeArea];
+		[incomingLocation setCity:placemark.locality];
+		[incomingLocation setPostalCode:placemark.postalCode];
+	}];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"WeatherLocationInfoUpdated" object:self];
 }
 
 -(void)addLocation:(WeatherLocation *)incomingLocation {

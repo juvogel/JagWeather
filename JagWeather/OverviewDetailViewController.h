@@ -14,5 +14,7 @@
 @property (nonatomic) WeatherLocation *selectedLocation;
 @property (nonatomic) IBOutlet UILabel *currentWind;
 @property (nonatomic) IBOutlet UILabel *currentHumidity;
+@property (nonatomic) IBOutlet UILabel *sunrise;
+@property (nonatomic) IBOutlet UILabel *sunset;
 
 @end

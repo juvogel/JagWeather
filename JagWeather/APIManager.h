@@ -29,7 +29,9 @@
 -(void)fetchJSONFromAPI:(NSURL *)url withLocation:(WeatherLocation *)incomingLocation;
 -(void)parseJSON:(NSDictionary *)locationAPIData withLocation:(WeatherLocation *)incomingLocation;
 -(void)fetchLocationsFromAPI:(NSString *)searchString;
--(void)parseJSON:(NSDictionary *)apiData;
+-(void)parseJSONSearchResults:(NSDictionary *)apiData;
 -(NSArray *)getSearchResults;
+-(NSString *)getCurrentTimeWithTimeZone:(NSString *)incomingTimeZone;
+-(BOOL)isDaytimeForLocation:(WeatherLocation *)incomingLocation;
 
 @end

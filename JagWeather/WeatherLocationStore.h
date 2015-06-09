@@ -20,12 +20,14 @@
 -(NSArray *)getAllLocations;
 -(WeatherLocation *)getWeatherLocationAtIndex:(NSInteger)index;
 -(void)createLocationWithCity:(NSString *)incomingCity
-						State:(NSString *)incomingState
-					  Country:(NSString *)incomingCountry
-					 Latitude:(NSNumber *)incomingLatitude
-					Longitude:(NSNumber *)incomingLongitude;
+						state:(NSString *)incomingState
+					  country:(NSString *)incomingCountry
+					 latitude:(NSNumber *)incomingLatitude
+					longitude:(NSNumber *)incomingLongitude;
 -(WeatherLocation *)createLocationFromLatitude:(NSNumber *)incomingLatitude
-									 Longitude:(NSNumber *)incomingLongitude;
+									 longitude:(NSNumber *)incomingLongitude
+								  withLink:(NSString *)incomingLink;
+-(void)updateLocationInfo:(WeatherLocation *)incomingLocation;
 -(void)addLocation:(WeatherLocation *)incomingLocation;
 -(void)removeLocation:(NSInteger)index;
 -(void)saveLocation;

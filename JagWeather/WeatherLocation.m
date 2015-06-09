@@ -2,7 +2,7 @@
 //  WeatherLocation.m
 //  JagWeather
 //
-//  Created by Bobby Vogel on 4/14/15.
+//  Created by Bobby Vogel on 4/20/15.
 //  Copyright (c) 2015 Bobby Vogel. All rights reserved.
 //
 
@@ -11,28 +11,35 @@
 
 @implementation WeatherLocation
 
-@dynamic postalCode;
-@dynamic countryName;
-@dynamic state;
 @dynamic city;
+@dynamic condition;
+@dynamic countryName;
+@dynamic feelsLike;
+@dynamic high;
+@dynamic humidity;
+@dynamic icon;
 @dynamic latitude;
 @dynamic longitude;
-@dynamic tempF;
-@dynamic condition;
-@dynamic icon;
-@dynamic high;
 @dynamic low;
-@dynamic humidity;
-@dynamic wind;
+@dynamic postalCode;
 @dynamic pressure;
-@dynamic feelsLike;
+@dynamic state;
+@dynamic sunrise;
+@dynamic sunset;
+@dynamic tempF;
+@dynamic timeZone;
+@dynamic wind;
+@dynamic creationDate;
+@dynamic link;
 
 -(NSString *)fullName {
-	if ([[self countryName] isEqualToString:@"USA"]) {
-		return [NSString stringWithFormat:@"%@, %@", [self city], [self state]];
-	} else {
-		return [NSString stringWithFormat:@"%@, %@", [self city], [self countryName]];
-	}
+	return [[self countryName] isEqualToString:@"USA"] ? [NSString stringWithFormat:@"%@, %@", [self city], [self state]] : [NSString stringWithFormat:@"%@, %@", [self city], [self countryName]];
+}
+
+-(void)awakeFromInsert {
+	[super awakeFromInsert];
+	
+	self.creationDate = [NSDate date];
 }
 
 @end

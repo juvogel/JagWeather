@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="GUg-2z-280">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="GUg-2z-280">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -20,8 +20,8 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KOY-mg-8Hd" id="Ewn-CX-GRh">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8D8-4f-JNx">
-                                            <rect key="frame" x="8" y="16" width="0.0" height="32"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8D8-4f-JNx">
+                                            <rect key="frame" x="8" y="16" width="190" height="32"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -230,8 +230,33 @@
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sunrise:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y6x-JK-kP7">
+                                            <rect key="frame" x="218" y="354" width="63" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KSV-sl-KYW">
+                                            <rect key="frame" x="289" y="354" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sunset:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PmP-GL-TZq">
+                                            <rect key="frame" x="222" y="407" width="59" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="imq-xU-XRO">
+                                            <rect key="frame" x="289" y="407" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="imq-xU-XRO" firstAttribute="leading" secondItem="KSV-sl-KYW" secondAttribute="leading" id="2C5-Lz-g9l"/>
                                         <constraint firstItem="8TG-jB-pwN" firstAttribute="leading" secondItem="kXJ-pz-JoW" secondAttribute="leading" id="2jC-Uy-2Dj"/>
                                         <constraint firstItem="CR4-3c-Eb4" firstAttribute="leading" secondItem="n86-fo-kIW" secondAttribute="trailing" constant="8" symbolic="YES" id="3mn-3b-BwH"/>
                                         <constraint firstItem="kXJ-pz-JoW" firstAttribute="leading" secondItem="DB7-dn-a3P" secondAttribute="trailing" constant="8" symbolic="YES" id="4hb-gL-m4r"/>
@@ -240,12 +265,16 @@
                                         <constraint firstItem="8TG-jB-pwN" firstAttribute="trailing" secondItem="oay-EK-a3B" secondAttribute="trailing" id="7b4-Pc-5AP"/>
                                         <constraint firstItem="DB7-dn-a3P" firstAttribute="top" secondItem="v6S-WQ-olc" secondAttribute="top" constant="128" id="8Pg-d9-Sof"/>
                                         <constraint firstAttribute="centerX" secondItem="CR4-3c-Eb4" secondAttribute="centerX" constant="-42.5" id="9U6-0e-btq"/>
+                                        <constraint firstItem="imq-xU-XRO" firstAttribute="leading" secondItem="PmP-GL-TZq" secondAttribute="trailing" constant="8" symbolic="YES" id="C58-eB-2EA"/>
+                                        <constraint firstItem="KSV-sl-KYW" firstAttribute="leading" secondItem="CR4-3c-Eb4" secondAttribute="leading" id="CKw-NJ-ocl"/>
+                                        <constraint firstItem="PmP-GL-TZq" firstAttribute="baseline" secondItem="imq-xU-XRO" secondAttribute="baseline" id="Gxa-Qt-2Fh"/>
                                         <constraint firstItem="2at-mC-nwq" firstAttribute="top" secondItem="DB7-dn-a3P" secondAttribute="bottom" constant="38" id="I5T-Xh-UWJ"/>
                                         <constraint firstItem="oay-EK-a3B" firstAttribute="leading" secondItem="k8w-U3-V4h" secondAttribute="trailing" constant="8" symbolic="YES" id="Jm3-nA-XZu"/>
                                         <constraint firstItem="n86-fo-kIW" firstAttribute="baseline" secondItem="CR4-3c-Eb4" secondAttribute="baseline" id="JoF-F3-q6Z"/>
                                         <constraint firstAttribute="centerX" secondItem="kXJ-pz-JoW" secondAttribute="centerX" constant="-42.5" id="L0R-uq-fkF"/>
                                         <constraint firstItem="u2Y-iC-0Ps" firstAttribute="top" secondItem="v6S-WQ-olc" secondAttribute="top" id="Lo2-Xb-wBM"/>
                                         <constraint firstAttribute="centerX" secondItem="oay-EK-a3B" secondAttribute="centerX" constant="-42.5" id="Qq6-rk-ttj"/>
+                                        <constraint firstItem="Y6x-JK-kP7" firstAttribute="top" secondItem="n86-fo-kIW" secondAttribute="bottom" constant="28" id="Ra0-Dp-79q"/>
                                         <constraint firstItem="2at-mC-nwq" firstAttribute="baseline" secondItem="8TG-jB-pwN" secondAttribute="baseline" id="UHz-K0-mVz"/>
                                         <constraint firstItem="k8w-U3-V4h" firstAttribute="top" secondItem="2at-mC-nwq" secondAttribute="bottom" constant="38" id="UvV-nG-bC5"/>
                                         <constraint firstItem="u2Y-iC-0Ps" firstAttribute="leading" secondItem="v6S-WQ-olc" secondAttribute="leading" id="YxZ-0c-9b7"/>
@@ -255,6 +284,9 @@
                                         <constraint firstItem="8TG-jB-pwN" firstAttribute="leading" secondItem="oay-EK-a3B" secondAttribute="leading" id="iOh-V2-sSd"/>
                                         <constraint firstItem="CR4-3c-Eb4" firstAttribute="leading" secondItem="oay-EK-a3B" secondAttribute="leading" id="nZs-rT-Q6U"/>
                                         <constraint firstItem="8TG-jB-pwN" firstAttribute="trailing" secondItem="kXJ-pz-JoW" secondAttribute="trailing" id="r1z-20-Y25"/>
+                                        <constraint firstItem="Y6x-JK-kP7" firstAttribute="baseline" secondItem="KSV-sl-KYW" secondAttribute="baseline" id="sp9-A3-JVj"/>
+                                        <constraint firstItem="PmP-GL-TZq" firstAttribute="top" secondItem="Y6x-JK-kP7" secondAttribute="bottom" constant="32" id="wEN-s7-zBh"/>
+                                        <constraint firstItem="KSV-sl-KYW" firstAttribute="leading" secondItem="Y6x-JK-kP7" secondAttribute="trailing" constant="8" symbolic="YES" id="xIg-ei-0OR"/>
                                         <constraint firstItem="8TG-jB-pwN" firstAttribute="leading" secondItem="2at-mC-nwq" secondAttribute="trailing" constant="8" symbolic="YES" id="yt1-6v-ph4"/>
                                     </constraints>
                                 </view>
@@ -274,6 +306,8 @@
                         <outlet property="currentHumidity" destination="8TG-jB-pwN" id="p62-Fg-CXz"/>
                         <outlet property="currentPressure" destination="CR4-3c-Eb4" id="MMo-oz-MFq"/>
                         <outlet property="currentWind" destination="kXJ-pz-JoW" id="bg7-37-Meb"/>
+                        <outlet property="sunrise" destination="KSV-sl-KYW" id="rHV-Vm-1aX"/>
+                        <outlet property="sunset" destination="imq-xU-XRO" id="txV-LF-SVL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="loh-BR-W5O" userLabel="First Responder" sceneMemberID="firstResponder"/>

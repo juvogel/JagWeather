@@ -10,7 +10,7 @@
 #import "WeatherLocation.h"
 #import "WeatherLocationStore.h"
 
-#define API_KEY @"4009a293c3e11ed0"
+#define API_KEY @"a5364373826b7b92"
 
 @implementation APIManager
 
@@ -37,26 +37,39 @@ static APIManager *sharedManager = nil;
         _session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
         jsonAPIData = [[NSMutableData alloc] init];
     }
-    
+	
     return self;
 }
 
 -(void)fetchWeatherForLocation:(WeatherLocation *)incomingLocation informationType:(NSString *)keyword {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@/q/%@,%@.json", weatherAPIURL, keyword, [incomingLocation latitude], [incomingLocation longitude]]];
-    
-    [self fetchJSONFromAPI:url withLocation:incomingLocation];
+	NSURL *url;
+	if ([incomingLocation link] == nil) {
+		url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@/q/%@,%@.json", weatherAPIURL, keyword, [incomingLocation latitude], [incomingLocation longitude]]];
+	} else {
+		url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@/q/zmw:%@.json", weatherAPIURL, keyword, [incomingLocation link]]];
+	}
+	
+	if ([incomingLocation latitude] != nil) {
+		[self fetchJSONFromAPI:url withLocation:incomingLocation];
+	}
 }
 
 -(void)fetchRadar:(MKCoordinateRegion)region {
 	CGRect screenRect = [[UIScreen mainScreen] bounds];
 	CGFloat screenWidth = screenRect.size.width;
 	CGFloat screenHeight = screenRect.size.height;
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@radar/image.gif?noclutter=1&rainsnow=1&smooth=1&width=%f&height=%f&centerlat=%f&centerlon=%f&radius=%f", weatherAPIURL, screenWidth, screenHeight, region.center.latitude, region.center.longitude, region.span.longitudeDelta]];
-	NSLog(@"%@", url);
+	CGFloat centerLatitude = region.center.latitude;
+	CGFloat centerLongitude = region.center.longitude;
+	CGFloat minLatitude = centerLatitude - region.span.latitudeDelta / 2;
+	CGFloat minLongitude = centerLongitude - region.span.longitudeDelta / 2;
+	CGFloat maxLatitude = centerLatitude + region.span.latitudeDelta / 2;
+	CGFloat maxLongitude = centerLongitude + region.span.longitudeDelta / 2;
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@radar/image.png?reproj.automerc=1&noclutter=1&rainsnow=1&smooth=1&width=%f&height=%f&minlat=%f&minlon=%f&maxlat=%f&maxlon=%f", weatherAPIURL, screenWidth, screenHeight, minLatitude, minLongitude, maxLatitude, maxLongitude]];
+	//NSLog(@"%@", url);
 	
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
 	NSURLSessionDataTask *dataTask = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-		radar = (UIImage *)data;
+		radar = [[UIImage alloc] initWithData:data];
 		
 		// run this method on main thread
 		dispatch_async(dispatch_get_main_queue(), ^{
@@ -87,7 +100,7 @@ static APIManager *sharedManager = nil;
             if (incomingLocation) {
                 [self parseJSON:locationAPIData withLocation:incomingLocation];
 			} else {
-				[self parseJSON:locationAPIData];
+				[self parseJSONSearchResults:locationAPIData];
 			}
         });
     }];
@@ -104,10 +117,8 @@ static APIManager *sharedManager = nil;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"APIDataProcessed" object:self];
     }
 	if ([locationAPIData objectForKey:@"current_observation"] != NULL) {
-		// set location info if it is not there
 		if ([incomingLocation city] == nil) {
-			[incomingLocation setCity:[[[locationAPIData objectForKey:@"current_observation"] objectForKey:@"display_location"] objectForKey:@"city"]];
-			[incomingLocation setState:[[[locationAPIData objectForKey:@"current_observation"] objectForKey:@"display_location"] objectForKey:@"state"]];
+			[incomingLocation setCity:[[[locationAPIData objectForKeyedSubscript:@"current_observation"] objectForKey:@"display_location"] objectForKey:@"city"]];
 		}
         [incomingLocation setTempF:[[locationAPIData objectForKey:@"current_observation"] objectForKey:@"temp_f"]];
         [incomingLocation setCondition:[[locationAPIData objectForKey:@"current_observation"] objectForKey:@"weather"]];
@@ -118,88 +129,91 @@ static APIManager *sharedManager = nil;
         [incomingLocation setPressure:[NSString stringWithFormat:@"%@ in", [[locationAPIData objectForKey:@"current_observation"] objectForKey:@"pressure_in"]]];
         // fetch feels like temp
         [incomingLocation setFeelsLike:[NSDecimalNumber decimalNumberWithString:[[locationAPIData objectForKey:@"current_observation"] objectForKey:@"feelslike_f"]]];
+		[incomingLocation setTimeZone:[[locationAPIData objectForKey:@"current_observation"] objectForKey:@"local_tz_short"]];
 		[self resolveConditionIcon:incomingLocation];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"APIDataProcessed" object:self];
 	}
+	if ([locationAPIData objectForKey:@"sun_phase"] != NULL) {
+		[incomingLocation setSunrise:[NSString stringWithFormat:@"%@:%@", [[[locationAPIData objectForKey:@"sun_phase"] objectForKey:@"sunrise"] objectForKey:@"hour"], [[[locationAPIData objectForKey:@"sun_phase"] objectForKey:@"sunrise"] objectForKey:@"minute"]]];
+		[incomingLocation setSunset:[NSString stringWithFormat:@"%@:%@", [[[locationAPIData objectForKey:@"sun_phase"] objectForKey:@"sunset"] objectForKey:@"hour"], [[[locationAPIData objectForKey:@"sun_phase"] objectForKey:@"sunset"] objectForKey:@"minute"]]];
+		
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"APIDataProcessed" object:self];
+	}
 }
 
 -(void)resolveConditionIcon:(WeatherLocation *)incomingLocation {
+	BOOL daytime = [self isDaytimeForLocation:incomingLocation];
 	if ([[incomingLocation condition] rangeOfString:@"Drizzle"].location != NSNotFound) {
-		[incomingLocation setIcon:@"Q"];
-		// night
-		//[incomingLocation setIcon:@"7"];
+		daytime ? [incomingLocation setIcon:@"Q"] : [incomingLocation setIcon:@"7"];
 	} else if ([[incomingLocation condition] rangeOfString:@"Light Rain"].location != NSNotFound) {
-		[incomingLocation setIcon:@"Q"];
-		// night
-		//[incomingLocation setIcon:@"7"];
+		daytime ? [incomingLocation setIcon:@"Q"] : [incomingLocation setIcon:@"7"];
 	} else if ([[incomingLocation condition] rangeOfString:@"Rain"].location != NSNotFound) {
-		[incomingLocation setIcon:@"R"];
-		// night
-		//[incomingLocation setIcon:@"8"];
+		daytime ? [incomingLocation setIcon:@"R"] : [incomingLocation setIcon:@"8"];
 	} else if ([[incomingLocation condition] rangeOfString:@"Light Snow"].location != NSNotFound) {
-		[incomingLocation setIcon:@"U"];
-		// night
-		//[incomingLocation setIcon:@"\""];
+		daytime ?[incomingLocation setIcon:@"U"] : [incomingLocation setIcon:@"\""];
 	} else if ([[incomingLocation condition] rangeOfString:@"Snow"].location != NSNotFound) {
-		[incomingLocation setIcon:@"W"];
-		// night
-		//[incomingLocation setIcon:@"#"];
+		daytime ? [incomingLocation setIcon:@"W"] : [incomingLocation setIcon:@"#"];
 	} else if ([[incomingLocation condition] rangeOfString:@"Flurries"].location != NSNotFound) {
-		[incomingLocation setIcon:@"U"];
-		// night
-		//[incomingLocation setIcon:@"\""];
+		daytime ? [incomingLocation setIcon:@"U"] : [incomingLocation setIcon:@"\""];
 	} else if ([[incomingLocation condition] rangeOfString:@"Hail"].location != NSNotFound) {
-		[incomingLocation setIcon:@"X"];
-		// night
-		//[incomingLocation setIcon:@"$"];
+		daytime ? [incomingLocation setIcon:@"X"] : [incomingLocation setIcon:@"$"];
 	} else if ([[incomingLocation condition] rangeOfString:@"Mist"].location != NSNotFound) {
 		[incomingLocation setIcon:@"L"];
 	} else if ([[incomingLocation condition] rangeOfString:@"Fog"].location != NSNotFound) {
 		[incomingLocation setIcon:@"M"];
 	} else if ([[incomingLocation condition] rangeOfString:@"Thunderstorms"].location != NSNotFound) {
-		[incomingLocation setIcon:@"Z"];
-		// night
-		//[incomingLocation setIcon:@"&"];
+		daytime ? [incomingLocation setIcon:@"Z"] : [incomingLocation setIcon:@"&"];
 	} else if ([[incomingLocation condition] rangeOfString:@"Thunderstorm"].location != NSNotFound) {
-		[incomingLocation setIcon:@"O"];
-		// night
-		//[incomingLocation setIcon:@"6"];
+		daytime ? [incomingLocation setIcon:@"O"] : [incomingLocation setIcon:@"6"];
 	} else if ([[incomingLocation condition] rangeOfString:@"Overcast"].location != NSNotFound) {
-		[incomingLocation setIcon:@"Y"];
-		// night
-		//[incomingLocation setIcon:@"%"];
+		daytime ? [incomingLocation setIcon:@"Y"] : [incomingLocation setIcon:@"%"];
 	} else if ([[incomingLocation condition] rangeOfString:@"Haze"].location != NSNotFound) {
-		[incomingLocation setIcon:@"A"];
+		daytime ? [incomingLocation setIcon:@"A"] : [incomingLocation setIcon:@"K"];
 	} else if ([[incomingLocation condition] rangeOfString:@"Clear"].location != NSNotFound) {
-		// if UTC time is less than sunset and greater than sunrise
-		[incomingLocation setIcon:@"B"];
-		// else
-		//[incomingLocation setIcon:@"C"];
+		daytime ? [incomingLocation setIcon:@"B"] : [incomingLocation setIcon:@"C"];
 	} else if ([[incomingLocation condition] rangeOfString:@"Partly Cloudy"].location != NSNotFound) {
-		[incomingLocation setIcon:@"H"];
-		// night
-		//[incomingLocation setIcon:@"4"];
+		daytime ? [incomingLocation setIcon:@"H"] : [incomingLocation setIcon:@"4"];
 	} else if ([[incomingLocation condition] rangeOfString:@"Cloudy"].location != NSNotFound) {
-		[incomingLocation setIcon:@"N"];
-		// night
-		//[incomingLocation setIcon:@"5"];
+		daytime ? [incomingLocation setIcon:@"N"] : [incomingLocation setIcon:@"5"];
 	} else if ([[incomingLocation condition] rangeOfString:@"Clouds"].location != NSNotFound) {
-		[incomingLocation setIcon:@"N"];
-		// night
-		//[incomingLocation setIcon:@"5"];
+		daytime ? [incomingLocation setIcon:@"N"] : [incomingLocation setIcon:@"5"];
 	} else {
 		[incomingLocation setIcon:@"?"];
 	}
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"APILocationIconUpdated" object:self];
 }
 
--(void)parseJSON:(NSDictionary *)apiData {
+-(void)parseJSONSearchResults:(NSDictionary *)apiData {
     searchResults = [apiData objectForKey:@"RESULTS"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"APISearchDataProcessed" object:self];
 }
 
 -(NSArray *)getSearchResults {
     return searchResults;
+}
+
+-(NSString *)getCurrentTimeWithTimeZone:(NSString *)incomingTimeZone {
+	NSDate *currentDate = [NSDate date];
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	[formatter setDateFormat:@"HH:mm"];
+	NSTimeInterval timeZoneSeconds = [[NSTimeZone timeZoneWithAbbreviation:incomingTimeZone] secondsFromGMT];
+	NSDate *localDate = [currentDate dateByAddingTimeInterval:timeZoneSeconds];
+	
+	return [formatter stringFromDate:localDate];
+}
+
+-(BOOL)isDaytimeForLocation:(WeatherLocation *)incomingLocation {
+	NSString *time = [self getCurrentTimeWithTimeZone:[incomingLocation timeZone]];
+	
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	[formatter setDateFormat:@"HH:mm"];
+	NSDate *sunriseTime = [formatter dateFromString:[incomingLocation sunrise]];
+	NSDate *currentTime = [formatter dateFromString:time];
+	NSDate *sunsetTime = [formatter dateFromString:[incomingLocation sunset]];
+	
+	return ([currentTime compare:sunriseTime] == NSOrderedAscending || [currentTime compare:sunsetTime] == NSOrderedDescending) ? NO : YES;
 }
 
 @end
